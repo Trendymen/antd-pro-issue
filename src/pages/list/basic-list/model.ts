@@ -1,7 +1,12 @@
-import { Effect, Reducer } from 'umi';
-import { addFakeList, queryFakeList, removeFakeList, updateFakeList } from './service';
+import { Effect, Reducer } from "umi";
+import {
+  addFakeList,
+  queryFakeList,
+  removeFakeList,
+  updateFakeList,
+} from "./service";
 
-import { BasicListItemDataType } from './data.d';
+import { BasicListItemDataType } from "./data.d";
 
 export interface StateType {
   list: BasicListItemDataType[];
@@ -22,7 +27,7 @@ export interface ModelType {
 }
 
 const Model: ModelType = {
-  namespace: 'listAndbasicList',
+  namespace: "listAndbasicList",
 
   state: {
     list: [],
@@ -32,27 +37,28 @@ const Model: ModelType = {
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryFakeList, payload);
       yield put({
-        type: 'queryList',
+        type: "queryList",
         payload: Array.isArray(response) ? response : [],
       });
     },
     *appendFetch({ payload }, { call, put }) {
       const response = yield call(queryFakeList, payload);
       yield put({
-        type: 'appendList',
+        type: "appendList",
         payload: Array.isArray(response) ? response : [],
       });
     },
     *submit({ payload }, { call, put }) {
       let callback;
       if (payload.id) {
-        callback = Object.keys(payload).length === 1 ? removeFakeList : updateFakeList;
+        callback =
+          Object.keys(payload).length === 1 ? removeFakeList : updateFakeList;
       } else {
         callback = addFakeList;
       }
       const response = yield call(callback, payload); // post
       yield put({
-        type: 'queryList',
+        type: "queryList",
         payload: response,
       });
     },

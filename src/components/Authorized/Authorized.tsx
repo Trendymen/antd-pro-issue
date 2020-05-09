@@ -1,9 +1,9 @@
-import React from 'react';
-import { Result } from 'antd';
-import check, { IAuthorityType } from './CheckPermissions';
+import React from "react";
+import { Result } from "antd";
+import check, { IAuthorityType } from "./CheckPermissions";
 
-import AuthorizedRoute from './AuthorizedRoute';
-import Secured from './Secured';
+import AuthorizedRoute from "./AuthorizedRoute";
+import Secured from "./Secured";
 
 interface AuthorizedProps {
   authority: IAuthorityType;
@@ -27,7 +27,8 @@ const Authorized: React.FunctionComponent<AuthorizedProps> = ({
     />
   ),
 }) => {
-  const childrenRender: React.ReactNode = typeof children === 'undefined' ? null : children;
+  const childrenRender: React.ReactNode =
+    typeof children === "undefined" ? null : children;
   const dom = check(authority, childrenRender, noMatch);
   return <>{dom}</>;
 };

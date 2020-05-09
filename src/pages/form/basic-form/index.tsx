@@ -1,9 +1,19 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
-import { Button, Card, DatePicker, Input, Form, InputNumber, Radio, Select, Tooltip } from 'antd';
-import { connect, Dispatch, FormattedMessage, formatMessage } from 'umi';
-import React, { FC } from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import styles from './style.less';
+import { InfoCircleOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Card,
+  DatePicker,
+  Input,
+  Form,
+  InputNumber,
+  Radio,
+  Select,
+  Tooltip,
+} from "antd";
+import { connect, Dispatch, FormattedMessage, formatMessage } from "umi";
+import React, { FC } from "react";
+import { PageHeaderWrapper } from "@ant-design/pro-layout";
+import styles from "./style.less";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -41,29 +51,31 @@ const BasicForm: FC<BasicFormProps> = (props) => {
   const onFinish = (values: { [key: string]: any }) => {
     const { dispatch } = props;
     dispatch({
-      type: 'formAndbasicForm/submitRegularForm',
+      type: "formAndbasicForm/submitRegularForm",
       payload: values,
     });
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   const onValuesChange = (changedValues: { [key: string]: any }) => {
     const { publicType } = changedValues;
-    if (publicType) setShowPublicUsers(publicType === '2');
+    if (publicType) setShowPublicUsers(publicType === "2");
   };
 
   return (
-    <PageHeaderWrapper content={<FormattedMessage id="formandbasic-form.basic.description" />}>
+    <PageHeaderWrapper
+      content={<FormattedMessage id="formandbasic-form.basic.description" />}
+    >
       <Card bordered={false}>
         <Form
           hideRequiredMark
           style={{ marginTop: 8 }}
           form={form}
           name="basic"
-          initialValues={{ public: '1' }}
+          initialValues={{ public: "1" }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           onValuesChange={onValuesChange}
@@ -75,11 +87,17 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.title.required' }),
+                message: formatMessage({
+                  id: "formandbasic-form.title.required",
+                }),
               },
             ]}
           >
-            <Input placeholder={formatMessage({ id: 'formandbasic-form.title.placeholder' })} />
+            <Input
+              placeholder={formatMessage({
+                id: "formandbasic-form.title.placeholder",
+              })}
+            />
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -88,15 +106,17 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.date.required' }),
+                message: formatMessage({
+                  id: "formandbasic-form.date.required",
+                }),
               },
             ]}
           >
             <RangePicker
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
               placeholder={[
-                formatMessage({ id: 'formandbasic-form.placeholder.start' }),
-                formatMessage({ id: 'formandbasic-form.placeholder.end' }),
+                formatMessage({ id: "formandbasic-form.placeholder.start" }),
+                formatMessage({ id: "formandbasic-form.placeholder.end" }),
               ]}
             />
           </FormItem>
@@ -107,13 +127,17 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.goal.required' }),
+                message: formatMessage({
+                  id: "formandbasic-form.goal.required",
+                }),
               },
             ]}
           >
             <TextArea
               style={{ minHeight: 32 }}
-              placeholder={formatMessage({ id: 'formandbasic-form.goal.placeholder' })}
+              placeholder={formatMessage({
+                id: "formandbasic-form.goal.placeholder",
+              })}
               rows={4}
             />
           </FormItem>
@@ -124,13 +148,17 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'formandbasic-form.standard.required' }),
+                message: formatMessage({
+                  id: "formandbasic-form.standard.required",
+                }),
               },
             ]}
           >
             <TextArea
               style={{ minHeight: 32 }}
-              placeholder={formatMessage({ id: 'formandbasic-form.standard.placeholder' })}
+              placeholder={formatMessage({
+                id: "formandbasic-form.standard.placeholder",
+              })}
               rows={4}
             />
           </FormItem>
@@ -141,7 +169,11 @@ const BasicForm: FC<BasicFormProps> = (props) => {
                 <FormattedMessage id="formandbasic-form.client.label" />
                 <em className={styles.optional}>
                   <FormattedMessage id="formandbasic-form.form.optional" />
-                  <Tooltip title={<FormattedMessage id="formandbasic-form.label.tooltip" />}>
+                  <Tooltip
+                    title={
+                      <FormattedMessage id="formandbasic-form.label.tooltip" />
+                    }
+                  >
                     <InfoCircleOutlined style={{ marginRight: 4 }} />
                   </Tooltip>
                 </em>
@@ -149,7 +181,11 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             }
             name="client"
           >
-            <Input placeholder={formatMessage({ id: 'formandbasic-form.client.placeholder' })} />
+            <Input
+              placeholder={formatMessage({
+                id: "formandbasic-form.client.placeholder",
+              })}
+            />
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -163,7 +199,11 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             }
             name="invites"
           >
-            <Input placeholder={formatMessage({ id: 'formandbasic-form.invites.placeholder' })} />
+            <Input
+              placeholder={formatMessage({
+                id: "formandbasic-form.invites.placeholder",
+              })}
+            />
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -178,7 +218,9 @@ const BasicForm: FC<BasicFormProps> = (props) => {
             name="weight"
           >
             <InputNumber
-              placeholder={formatMessage({ id: 'formandbasic-form.weight.placeholder' })}
+              placeholder={formatMessage({
+                id: "formandbasic-form.weight.placeholder",
+              })}
               min={0}
               max={100}
             />
@@ -205,10 +247,12 @@ const BasicForm: FC<BasicFormProps> = (props) => {
               <FormItem style={{ marginBottom: 0 }} name="publicUsers">
                 <Select
                   mode="multiple"
-                  placeholder={formatMessage({ id: 'formandbasic-form.publicUsers.placeholder' })}
+                  placeholder={formatMessage({
+                    id: "formandbasic-form.publicUsers.placeholder",
+                  })}
                   style={{
-                    margin: '8px 0',
-                    display: showPublicUsers ? 'block' : 'none',
+                    margin: "8px 0",
+                    display: showPublicUsers ? "block" : "none",
                   }}
                 >
                   <Option value="1">
@@ -238,6 +282,8 @@ const BasicForm: FC<BasicFormProps> = (props) => {
   );
 };
 
-export default connect(({ loading }: { loading: { effects: { [key: string]: boolean } } }) => ({
-  submitting: loading.effects['formAndbasicForm/submitRegularForm'],
-}))(BasicForm);
+export default connect(
+  ({ loading }: { loading: { effects: { [key: string]: boolean } } }) => ({
+    submitting: loading.effects["formAndbasicForm/submitRegularForm"],
+  })
+)(BasicForm);

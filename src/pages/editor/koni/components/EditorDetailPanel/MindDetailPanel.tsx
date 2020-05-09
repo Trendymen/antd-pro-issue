@@ -1,9 +1,9 @@
-import { CanvasPanel, DetailPanel, NodePanel } from 'gg-editor';
+import { CanvasPanel, DetailPanel, NodePanel } from "gg-editor";
 
-import { Card } from 'antd';
-import React from 'react';
-import DetailForm from './DetailForm';
-import styles from './index.less';
+import { Card } from "antd";
+import React from "react";
+import DetailForm from "./DetailForm";
+import styles from "./index.less";
 
 const MindDetailPanel = () => (
   <DetailPanel className={styles.detailPanel}>

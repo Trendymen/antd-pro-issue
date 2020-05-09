@@ -1,6 +1,6 @@
-import React from 'react';
-import { Tooltip } from 'antd';
-import styles from './index.less';
+import React from "react";
+import { Tooltip } from "antd";
+import styles from "./index.less";
 
 export interface MiniProgressProps {
   target: number;
@@ -14,13 +14,16 @@ export interface MiniProgressProps {
 const MiniProgress: React.FC<MiniProgressProps> = ({
   targetLabel,
   target,
-  color = 'rgb(19, 194, 194)',
+  color = "rgb(19, 194, 194)",
   strokeWidth,
   percent,
 }) => (
   <div className={styles.miniProgress}>
     <Tooltip title={targetLabel}>
-      <div className={styles.target} style={{ left: target ? `${target}%` : undefined }}>
+      <div
+        className={styles.target}
+        style={{ left: target ? `${target}%` : undefined }}
+      >
         <span style={{ backgroundColor: color || undefined }} />
         <span style={{ backgroundColor: color || undefined }} />
       </div>

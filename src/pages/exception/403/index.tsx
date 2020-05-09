@@ -1,13 +1,13 @@
-import { Link } from 'umi';
-import { Result, Button } from 'antd';
-import React from 'react';
+import { Link } from "umi";
+import { Result, Button } from "antd";
+import React from "react";
 
 export default () => (
   <Result
     status="403"
     title="403"
     style={{
-      background: 'none',
+      background: "none",
     }}
     subTitle="Sorry, you don't have access to this page."
     extra={

@@ -1,12 +1,12 @@
-import { StarTwoTone, LikeOutlined, MessageFilled } from '@ant-design/icons';
-import { List, Tag } from 'antd';
-import React from 'react';
+import { StarTwoTone, LikeOutlined, MessageFilled } from "@ant-design/icons";
+import { List, Tag } from "antd";
+import React from "react";
 
-import { connect } from 'umi';
-import ArticleListContent from '../ArticleListContent';
-import { ListItemDataType } from '../../data.d';
-import { ModalState } from '../../model';
-import styles from './index.less';
+import { connect } from "umi";
+import ArticleListContent from "../ArticleListContent";
+import { ListItemDataType } from "../../data.d";
+import { ModalState } from "../../model";
+import styles from "./index.less";
 
 const Articles: React.FC<Partial<ModalState>> = (props) => {
   const { list } = props;
@@ -31,7 +31,11 @@ const Articles: React.FC<Partial<ModalState>> = (props) => {
           actions={[
             <IconText key="star" icon={<StarTwoTone />} text={item.star} />,
             <IconText key="like" icon={<LikeOutlined />} text={item.like} />,
-            <IconText key="message" icon={<MessageFilled />} text={item.message} />,
+            <IconText
+              key="message"
+              icon={<MessageFilled />}
+              text={item.message}
+            />,
           ]}
         >
           <List.Item.Meta
@@ -55,6 +59,8 @@ const Articles: React.FC<Partial<ModalState>> = (props) => {
   );
 };
 
-export default connect(({ accountAndcenter }: { accountAndcenter: ModalState }) => ({
-  list: accountAndcenter.list,
-}))(Articles);
+export default connect(
+  ({ accountAndcenter }: { accountAndcenter: ModalState }) => ({
+    list: accountAndcenter.list,
+  })
+)(Articles);

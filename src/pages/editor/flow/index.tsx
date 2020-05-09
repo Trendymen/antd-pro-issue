@@ -1,23 +1,23 @@
-import { Col, Row } from 'antd';
-import GGEditor, { Flow } from 'gg-editor';
+import { Col, Row } from "antd";
+import GGEditor, { Flow } from "gg-editor";
 
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import React from 'react';
-import { formatMessage } from 'umi';
-import EditorMinimap from './components/EditorMinimap';
-import { FlowContextMenu } from './components/EditorContextMenu';
-import { FlowDetailPanel } from './components/EditorDetailPanel';
-import { FlowItemPanel } from './components/EditorItemPanel';
-import { FlowToolbar } from './components/EditorToolbar';
-import styles from './index.less';
+import { PageHeaderWrapper } from "@ant-design/pro-layout";
+import React from "react";
+import { formatMessage } from "umi";
+import EditorMinimap from "./components/EditorMinimap";
+import { FlowContextMenu } from "./components/EditorContextMenu";
+import { FlowDetailPanel } from "./components/EditorDetailPanel";
+import { FlowItemPanel } from "./components/EditorItemPanel";
+import { FlowToolbar } from "./components/EditorToolbar";
+import styles from "./index.less";
 
 GGEditor.setTrackable(false);
 
 export default () => (
   <PageHeaderWrapper
     content={formatMessage({
-      id: 'editorandflow.description',
-      defaultMessage: '',
+      id: "editorandflow.description",
+      defaultMessage: "",
     })}
   >
     <GGEditor className={styles.editor}>

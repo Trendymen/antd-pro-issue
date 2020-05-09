@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Tag } from 'antd';
-import { UpOutlined, DownOutlined } from '@ant-design/icons';
+import React, { Component } from "react";
+import { Tag } from "antd";
+import { UpOutlined, DownOutlined } from "@ant-design/icons";
 
-import classNames from 'classnames';
-import styles from './index.less';
+import classNames from "classnames";
+import styles from "./index.less";
 
 const { CheckableTag } = Tag;
 
@@ -28,7 +28,9 @@ export interface TagSelectProps {
   };
   className?: string;
   Option?: TagSelectOptionProps;
-  children?: React.ReactElement<TagSelectOptionType> | React.ReactElement<TagSelectOptionType>[];
+  children?:
+    | React.ReactElement<TagSelectOptionType>
+    | React.ReactElement<TagSelectOptionType>[];
 }
 
 const TagSelectOption: React.FC<TagSelectOptionProps> & {
@@ -56,16 +58,16 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
   static defaultProps = {
     hideCheckAll: false,
     actionsText: {
-      expandText: '展开',
-      collapseText: '收起',
-      selectAllText: '全部',
+      expandText: "展开",
+      collapseText: "收起",
+      selectAllText: "全部",
     },
   };
 
   static Option: TagSelectOptionType = TagSelectOption;
 
   static getDerivedStateFromProps(nextProps: TagSelectProps) {
-    if ('value' in nextProps) {
+    if ("value" in nextProps) {
       return { value: nextProps.value || [] };
     }
     return null;
@@ -81,7 +83,7 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
 
   onChange = (value: (string | number)[]) => {
     const { onChange } = this.props;
-    if (!('value' in this.props)) {
+    if (!("value" in this.props)) {
       this.setState({ value });
     }
     if (onChange) {
@@ -126,16 +128,30 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
     });
   };
 
-  isTagSelectOption = (node: React.ReactElement<TagSelectOptionType, TagSelectOptionType>) =>
+  isTagSelectOption = (
+    node: React.ReactElement<TagSelectOptionType, TagSelectOptionType>
+  ) =>
     node &&
     node.type &&
-    (node.type.isTagSelectOption || node.type.displayName === 'TagSelectOption');
+    (node.type.isTagSelectOption ||
+      node.type.displayName === "TagSelectOption");
 
   render() {
     const { value, expand } = this.state;
-    const { children, hideCheckAll, className, style, expandable, actionsText = {} } = this.props;
+    const {
+      children,
+      hideCheckAll,
+      className,
+      style,
+      expandable,
+      actionsText = {},
+    } = this.props;
     const checkedAll = this.getAllTags().length === value.length;
-    const { expandText = '展开', collapseText = '收起', selectAllText = '全部' } = actionsText;
+    const {
+      expandText = "展开",
+      collapseText = "收起",
+      selectAllText = "全部",
+    } = actionsText;
 
     const cls = classNames(styles.tagSelect, className, {
       [styles.hasExpandTag]: expandable,
@@ -145,7 +161,11 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
     return (
       <div className={cls} style={style}>
         {hideCheckAll ? null : (
-          <CheckableTag checked={checkedAll} key="tag-select-__all__" onChange={this.onSelectAll}>
+          <CheckableTag
+            checked={checkedAll}
+            key="tag-select-__all__"
+            onChange={this.onSelectAll}
+          >
             {selectAllText}
           </CheckableTag>
         )}

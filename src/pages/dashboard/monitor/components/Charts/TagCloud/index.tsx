@@ -1,16 +1,17 @@
-import { Chart, Coord, Geom, Shape, Tooltip } from 'bizcharts';
-import React, { Component } from 'react';
+import { Chart, Coord, Geom, Shape, Tooltip } from "bizcharts";
+import React, { Component } from "react";
 
-import DataSet from '@antv/data-set';
-import Debounce from 'lodash.debounce';
-import classNames from 'classnames';
-import autoHeight from '../autoHeight';
-import styles from './index.less';
+import DataSet from "@antv/data-set";
+import Debounce from "lodash.debounce";
+import classNames from "classnames";
+import autoHeight from "../autoHeight";
+import styles from "./index.less";
 
 /* eslint no-underscore-dangle: 0 */
 /* eslint no-param-reassign: 0 */
 
-const imgUrl = 'https://gw.alipayobjects.com/zos/rmsportal/gWyeGLCdFFRavBGIDzWk.png';
+const imgUrl =
+  "https://gw.alipayobjects.com/zos/rmsportal/gWyeGLCdFFRavBGIDzWk.png";
 
 export interface TagCloudProps {
   data: {
@@ -35,9 +36,9 @@ class TagCloud extends Component<TagCloudProps, TagCloudState> {
     width: 0,
   };
 
-  requestRef: number = 0;
+  requestRef = 0;
 
-  isUnmount: boolean = false;
+  isUnmount = false;
 
   root: HTMLDivElement | undefined = undefined;
 
@@ -48,7 +49,7 @@ class TagCloud extends Component<TagCloudProps, TagCloudState> {
       this.initTagCloud();
       this.renderChart(this.props);
     });
-    window.addEventListener('resize', this.resize, { passive: true });
+    window.addEventListener("resize", this.resize, { passive: true });
   }
 
   componentDidUpdate(preProps?: TagCloudProps) {
@@ -61,7 +62,7 @@ class TagCloud extends Component<TagCloudProps, TagCloudState> {
   componentWillUnmount() {
     this.isUnmount = true;
     window.cancelAnimationFrame(this.requestRef);
-    window.removeEventListener('resize', this.resize);
+    window.removeEventListener("resize", this.resize);
   }
 
   resize = () => {
@@ -89,20 +90,20 @@ class TagCloud extends Component<TagCloudProps, TagCloudState> {
         fontSize: cfg.origin._origin.size,
         rotate: cfg.origin._origin.rotate,
         text: cfg.origin._origin.text,
-        textAlign: 'center',
+        textAlign: "center",
         fontFamily: cfg.origin._origin.font,
         fill: cfg.color,
-        textBaseline: 'Alphabetic',
+        textBaseline: "Alphabetic",
       };
     }
 
-    (Shape as any).registerShape('point', 'cloud', {
+    (Shape as any).registerShape("point", "cloud", {
       drawShape(
         cfg: { x: any; y: any },
-        container: { addShape: (arg0: string, arg1: { attrs: any }) => void },
+        container: { addShape: (arg0: string, arg1: { attrs: any }) => void }
       ) {
         const attrs = getTextAttrs(cfg);
-        return container.addShape('text', {
+        return container.addShape("text", {
           attrs: {
             ...attrs,
             x: cfg.x,
@@ -125,13 +126,13 @@ class TagCloud extends Component<TagCloudProps, TagCloudState> {
 
     const onload = () => {
       const dv = new DataSet.View().source(data);
-      const range = dv.range('value');
+      const range = dv.range("value");
       const [min, max] = range;
       dv.transform({
-        type: 'tag-cloud',
-        fields: ['name', 'value'],
+        type: "tag-cloud",
+        fields: ["name", "value"],
         imageMask: this.imageMask,
-        font: 'Verdana',
+        font: "Verdana",
         size: [w, h], // 宽高设置最好根据 imageMask 做调整
         padding: 0,
         timeInterval: 5000, // max execute time
@@ -157,7 +158,7 @@ class TagCloud extends Component<TagCloudProps, TagCloudState> {
 
     if (!this.imageMask) {
       this.imageMask = new Image();
-      this.imageMask.crossOrigin = '';
+      this.imageMask.crossOrigin = "";
       this.imageMask.src = imgUrl;
 
       this.imageMask.onload = onload;
@@ -173,7 +174,7 @@ class TagCloud extends Component<TagCloudProps, TagCloudState> {
     return (
       <div
         className={classNames(styles.tagCloud, className)}
-        style={{ width: '100%', height }}
+        style={{ width: "100%", height }}
         ref={this.saveRootRef}
       >
         {dv && (
@@ -195,7 +196,7 @@ class TagCloud extends Component<TagCloudProps, TagCloudState> {
               color="text"
               shape="cloud"
               tooltip={[
-                'text*value',
+                "text*value",
                 function trans(text, value) {
                   return { name: text, value };
                 },

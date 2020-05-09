@@ -1,6 +1,16 @@
-import { Effect, Reducer } from 'umi';
-import { ActivitiesType, CurrentUser, NoticeType, RadarDataType } from './data.d';
-import { fakeChartData, queryActivities, queryCurrent, queryProjectNotice } from './service';
+import { Effect, Reducer } from "umi";
+import {
+  ActivitiesType,
+  CurrentUser,
+  NoticeType,
+  RadarDataType,
+} from "./data.d";
+import {
+  fakeChartData,
+  queryActivities,
+  queryCurrent,
+  queryProjectNotice,
+} from "./service";
 
 export interface ModalState {
   currentUser?: CurrentUser;
@@ -26,7 +36,7 @@ export interface ModelType {
 }
 
 const Model: ModelType = {
-  namespace: 'dashboardAndworkplace',
+  namespace: "dashboardAndworkplace",
   state: {
     currentUser: undefined,
     projectNotice: [],
@@ -35,15 +45,15 @@ const Model: ModelType = {
   },
   effects: {
     *init(_, { put }) {
-      yield put({ type: 'fetchUserCurrent' });
-      yield put({ type: 'fetchProjectNotice' });
-      yield put({ type: 'fetchActivitiesList' });
-      yield put({ type: 'fetchChart' });
+      yield put({ type: "fetchUserCurrent" });
+      yield put({ type: "fetchProjectNotice" });
+      yield put({ type: "fetchActivitiesList" });
+      yield put({ type: "fetchChart" });
     },
     *fetchUserCurrent(_, { call, put }) {
       const response = yield call(queryCurrent);
       yield put({
-        type: 'save',
+        type: "save",
         payload: {
           currentUser: response,
         },
@@ -52,7 +62,7 @@ const Model: ModelType = {
     *fetchProjectNotice(_, { call, put }) {
       const response = yield call(queryProjectNotice);
       yield put({
-        type: 'save',
+        type: "save",
         payload: {
           projectNotice: Array.isArray(response) ? response : [],
         },
@@ -61,7 +71,7 @@ const Model: ModelType = {
     *fetchActivitiesList(_, { call, put }) {
       const response = yield call(queryActivities);
       yield put({
-        type: 'save',
+        type: "save",
         payload: {
           activities: Array.isArray(response) ? response : [],
         },
@@ -70,7 +80,7 @@ const Model: ModelType = {
     *fetchChart(_, { call, put }) {
       const { radarData } = yield call(fakeChartData);
       yield put({
-        type: 'save',
+        type: "save",
         payload: {
           radarData,
         },

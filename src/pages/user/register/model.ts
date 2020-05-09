@@ -1,10 +1,10 @@
-import { Effect, Reducer } from 'umi';
+import { Effect, Reducer } from "umi";
 
-import { fakeRegister } from './service';
+import { fakeRegister } from "./service";
 
 export interface StateType {
-  status?: 'ok' | 'error';
-  currentAuthority?: 'user' | 'guest' | 'admin';
+  status?: "ok" | "error";
+  currentAuthority?: "user" | "guest" | "admin";
 }
 
 export interface ModelType {
@@ -19,7 +19,7 @@ export interface ModelType {
 }
 
 const Model: ModelType = {
-  namespace: 'userAndregister',
+  namespace: "userAndregister",
 
   state: {
     status: undefined,
@@ -29,7 +29,7 @@ const Model: ModelType = {
     *submit({ payload }, { call, put }) {
       const response = yield call(fakeRegister, payload);
       yield put({
-        type: 'registerHandle',
+        type: "registerHandle",
         payload: response,
       });
     },

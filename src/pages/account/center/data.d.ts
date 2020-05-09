@@ -55,7 +55,7 @@ export interface ListItemDataType {
   title: string;
   avatar: string;
   cover: string;
-  status: 'normal' | 'exception' | 'active' | 'success';
+  status: "normal" | "exception" | "active" | "success";
   percent: number;
   logo: string;
   href: string;

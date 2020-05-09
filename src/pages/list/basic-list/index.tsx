@@ -1,5 +1,5 @@
-import React, { FC, useRef, useState, useEffect } from 'react';
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import React, { FC, useRef, useState, useEffect } from "react";
+import { DownOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   Avatar,
   Button,
@@ -13,16 +13,16 @@ import {
   Progress,
   Radio,
   Row,
-} from 'antd';
+} from "antd";
 
-import { findDOMNode } from 'react-dom';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { connect, Dispatch } from 'umi';
-import moment from 'moment';
-import OperationModal from './components/OperationModal';
-import { StateType } from './model';
-import { BasicListItemDataType } from './data.d';
-import styles from './style.less';
+import { findDOMNode } from "react-dom";
+import { PageHeaderWrapper } from "@ant-design/pro-layout";
+import { connect, Dispatch } from "umi";
+import moment from "moment";
+import OperationModal from "./components/OperationModal";
+import { StateType } from "./model";
+import { BasicListItemDataType } from "./data.d";
+import styles from "./style.less";
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -30,7 +30,7 @@ const { Search } = Input;
 
 interface BasicListProps {
   listAndbasicList: StateType;
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   loading: boolean;
 }
 
@@ -58,10 +58,15 @@ const ListContent = ({
     </div>
     <div className={styles.listContentItem}>
       <span>开始时间</span>
-      <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
+      <p>{moment(createdAt).format("YYYY-MM-DD HH:mm")}</p>
     </div>
     <div className={styles.listContentItem}>
-      <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
+      <Progress
+        percent={percent}
+        status={status}
+        strokeWidth={6}
+        style={{ width: 180 }}
+      />
     </div>
   </div>
 );
@@ -75,16 +80,18 @@ export const BasicList: FC<BasicListProps> = (props) => {
   } = props;
   const [done, setDone] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
-  const [current, setCurrent] = useState<Partial<BasicListItemDataType> | undefined>(undefined);
+  const [current, setCurrent] = useState<
+    Partial<BasicListItemDataType> | undefined
+  >(undefined);
 
   useEffect(() => {
     dispatch({
-      type: 'listAndbasicList/fetch',
+      type: "listAndbasicList/fetch",
       payload: {
         count: 5,
       },
     });
-  }, [1]);
+  }, [dispatch]);
 
   const paginationProps = {
     showSizeChanger: true,
@@ -105,19 +112,19 @@ export const BasicList: FC<BasicListProps> = (props) => {
 
   const deleteItem = (id: string) => {
     dispatch({
-      type: 'listAndbasicList/submit',
+      type: "listAndbasicList/submit",
       payload: { id },
     });
   };
 
   const editAndDelete = (key: string, currentItem: BasicListItemDataType) => {
-    if (key === 'edit') showEditModal(currentItem);
-    else if (key === 'delete') {
+    if (key === "edit") showEditModal(currentItem);
+    else if (key === "delete") {
       Modal.confirm({
-        title: '删除任务',
-        content: '确定删除该任务吗？',
-        okText: '确认',
-        cancelText: '取消',
+        title: "删除任务",
+        content: "确定删除该任务吗？",
+        okText: "确认",
+        cancelText: "取消",
         onOk: () => deleteItem(currentItem.id),
       });
     }
@@ -130,7 +137,11 @@ export const BasicList: FC<BasicListProps> = (props) => {
         <RadioButton value="progress">进行中</RadioButton>
         <RadioButton value="waiting">等待中</RadioButton>
       </RadioGroup>
-      <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
+      <Search
+        className={styles.extraContentSearch}
+        placeholder="请输入"
+        onSearch={() => ({})}
+      />
     </div>
   );
 
@@ -172,13 +183,13 @@ export const BasicList: FC<BasicListProps> = (props) => {
   };
 
   const handleSubmit = (values: BasicListItemDataType) => {
-    const id = current ? current.id : '';
+    const id = current ? current.id : "";
 
     setAddBtnblur();
 
     setDone(true);
     dispatch({
-      type: 'listAndbasicList/submit',
+      type: "listAndbasicList/submit",
       payload: { id, ...values },
     });
   };
@@ -206,12 +217,12 @@ export const BasicList: FC<BasicListProps> = (props) => {
             bordered={false}
             title="基本列表"
             style={{ marginTop: 24 }}
-            bodyStyle={{ padding: '0 32px 40px 32px' }}
+            bodyStyle={{ padding: "0 32px 40px 32px" }}
             extra={extraContent}
           >
             <Button
               type="dashed"
-              style={{ width: '100%', marginBottom: 8 }}
+              style={{ width: "100%", marginBottom: 8 }}
               onClick={showModal}
               ref={addBtn}
             >
@@ -241,7 +252,9 @@ export const BasicList: FC<BasicListProps> = (props) => {
                   ]}
                 >
                   <List.Item.Meta
-                    avatar={<Avatar src={item.logo} shape="square" size="large" />}
+                    avatar={
+                      <Avatar src={item.logo} shape="square" size="large" />
+                    }
                     title={<a href={item.href}>{item.title}</a>}
                     description={item.subDescription}
                   />
@@ -277,5 +290,5 @@ export default connect(
   }) => ({
     listAndbasicList,
     loading: loading.models.listAndbasicList,
-  }),
+  })
 )(BasicList);

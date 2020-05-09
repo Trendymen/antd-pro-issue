@@ -1,11 +1,11 @@
-import { Button, Result, Descriptions, Statistic } from 'antd';
-import React from 'react';
-import { connect, Dispatch } from 'umi';
-import { StateType } from '../../model';
-import styles from './index.less';
+import { Button, Result, Descriptions, Statistic } from "antd";
+import React from "react";
+import { connect, Dispatch } from "umi";
+import { StateType } from "../../model";
+import styles from "./index.less";
 
 interface Step3Props {
-  data?: StateType['step'];
+  data?: StateType["step"];
   dispatch?: Dispatch<any>;
 }
 
@@ -18,8 +18,8 @@ const Step3: React.FC<Step3Props> = (props) => {
   const onFinish = () => {
     if (dispatch) {
       dispatch({
-        type: 'formAndstepForm/saveCurrentStep',
-        payload: 'info',
+        type: "formAndstepForm/saveCurrentStep",
+        payload: "info",
       });
     }
   };
@@ -27,8 +27,14 @@ const Step3: React.FC<Step3Props> = (props) => {
     <div className={styles.information}>
       <Descriptions column={1}>
         <Descriptions.Item label="付款账户"> {payAccount}</Descriptions.Item>
-        <Descriptions.Item label="收款账户"> {receiverAccount}</Descriptions.Item>
-        <Descriptions.Item label="收款人姓名"> {receiverName}</Descriptions.Item>
+        <Descriptions.Item label="收款账户">
+          {" "}
+          {receiverAccount}
+        </Descriptions.Item>
+        <Descriptions.Item label="收款人姓名">
+          {" "}
+          {receiverName}
+        </Descriptions.Item>
         <Descriptions.Item label="转账金额">
           <Statistic value={amount} suffix="元" />
         </Descriptions.Item>
@@ -56,6 +62,8 @@ const Step3: React.FC<Step3Props> = (props) => {
   );
 };
 
-export default connect(({ formAndstepForm }: { formAndstepForm: StateType }) => ({
-  data: formAndstepForm.step,
-}))(Step3);
+export default connect(
+  ({ formAndstepForm }: { formAndstepForm: StateType }) => ({
+    data: formAndstepForm.step,
+  })
+)(Step3);

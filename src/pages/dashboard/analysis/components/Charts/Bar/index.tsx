@@ -1,9 +1,9 @@
-import { Axis, Chart, Geom, Tooltip } from 'bizcharts';
-import React, { Component } from 'react';
+import { Axis, Chart, Geom, Tooltip } from "bizcharts";
+import React, { Component } from "react";
 
-import Debounce from 'lodash.debounce';
-import autoHeight from '../autoHeight';
-import styles from '../index.less';
+import Debounce from "lodash.debounce";
+import autoHeight from "../autoHeight";
+import styles from "../index.less";
 
 export interface BarProps {
   title: React.ReactNode;
@@ -59,11 +59,11 @@ class Bar extends Component<
   }, 500);
 
   componentDidMount() {
-    window.addEventListener('resize', this.resize, { passive: true });
+    window.addEventListener("resize", this.resize, { passive: true });
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.resize);
+    window.removeEventListener("resize", this.resize);
   }
 
   handleRoot = (n: HTMLDivElement) => {
@@ -80,7 +80,7 @@ class Bar extends Component<
       title,
       forceFit = true,
       data,
-      color = 'rgba(24, 144, 255, 0.85)',
+      color = "rgba(24, 144, 255, 0.85)",
       padding,
     } = this.props;
 
@@ -88,15 +88,18 @@ class Bar extends Component<
 
     const scale = {
       x: {
-        type: 'cat',
+        type: "cat",
       },
       y: {
         min: 0,
       },
     };
 
-    const tooltip: [string, (...args: any[]) => { name?: string; value: string }] = [
-      'x*y',
+    const tooltip: [
+      string,
+      (...args: any[]) => { name?: string; value: string }
+    ] = [
+      "x*y",
       (x: string, y: string) => ({
         name: x,
         value: y,
@@ -112,7 +115,7 @@ class Bar extends Component<
             height={title ? height - 41 : height}
             forceFit={forceFit}
             data={data}
-            padding={padding || 'auto'}
+            padding={padding || "auto"}
           >
             <Axis
               name="x"
@@ -122,7 +125,12 @@ class Bar extends Component<
             />
             <Axis name="y" min={0} />
             <Tooltip showTitle={false} crosshairs={false} />
-            <Geom type="interval" position="x*y" color={color} tooltip={tooltip} />
+            <Geom
+              type="interval"
+              position="x*y"
+              color={color}
+              tooltip={tooltip}
+            />
           </Chart>
         </div>
       </div>

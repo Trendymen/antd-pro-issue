@@ -1,8 +1,8 @@
-import { Card } from 'antd';
-import { CardProps } from 'antd/es/card';
-import React from 'react';
-import classNames from 'classnames';
-import styles from './index.less';
+import { Card } from "antd";
+import { CardProps } from "antd/es/card";
+import React from "react";
+import classNames from "classnames";
+import styles from "./index.less";
 
 type totalType = () => React.ReactNode;
 
@@ -12,10 +12,10 @@ const renderTotal = (total?: number | totalType | React.ReactNode) => {
   }
   let totalDom;
   switch (typeof total) {
-    case 'undefined':
+    case "undefined":
       totalDom = null;
       break;
-    case 'function':
+    case "function":
       totalDom = <div className={styles.total}>{total()}</div>;
       break;
     default:
@@ -36,7 +36,16 @@ export interface ChartCardProps extends CardProps {
 
 class ChartCard extends React.Component<ChartCardProps> {
   renderContent = () => {
-    const { contentHeight, title, avatar, action, total, footer, children, loading } = this.props;
+    const {
+      contentHeight,
+      title,
+      avatar,
+      action,
+      total,
+      footer,
+      children,
+      loading,
+    } = this.props;
     if (loading) {
       return false;
     }
@@ -57,8 +66,13 @@ class ChartCard extends React.Component<ChartCardProps> {
           </div>
         </div>
         {children && (
-          <div className={styles.content} style={{ height: contentHeight || 'auto' }}>
-            <div className={contentHeight && styles.contentFixed}>{children}</div>
+          <div
+            className={styles.content}
+            style={{ height: contentHeight || "auto" }}
+          >
+            <div className={contentHeight && styles.contentFixed}>
+              {children}
+            </div>
           </div>
         )}
         {footer && (
@@ -87,7 +101,11 @@ class ChartCard extends React.Component<ChartCardProps> {
       ...rest
     } = this.props;
     return (
-      <Card loading={loading} bodyStyle={{ padding: '20px 24px 8px 24px' }} {...rest}>
+      <Card
+        loading={loading}
+        bodyStyle={{ padding: "20px 24px 8px 24px" }}
+        {...rest}
+      >
         {this.renderContent()}
       </Card>
     );

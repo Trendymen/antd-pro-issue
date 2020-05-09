@@ -1,6 +1,6 @@
-import { Effect, Reducer } from 'umi';
+import { Effect, Reducer } from "umi";
 
-import { fakeSubmitForm } from './service';
+import { fakeSubmitForm } from "./service";
 
 export interface StateType {
   current?: string;
@@ -25,15 +25,15 @@ export interface ModelType {
 }
 
 const Model: ModelType = {
-  namespace: 'formAndstepForm',
+  namespace: "formAndstepForm",
 
   state: {
-    current: 'info',
+    current: "info",
     step: {
-      payAccount: 'ant-design@alipay.com',
-      receiverAccount: 'test@example.com',
-      receiverName: 'Alex',
-      amount: '500',
+      payAccount: "ant-design@alipay.com",
+      receiverAccount: "test@example.com",
+      receiverName: "Alex",
+      amount: "500",
     },
   },
 
@@ -41,12 +41,12 @@ const Model: ModelType = {
     *submitStepForm({ payload }, { call, put }) {
       yield call(fakeSubmitForm, payload);
       yield put({
-        type: 'saveStepFormData',
+        type: "saveStepFormData",
         payload,
       });
       yield put({
-        type: 'saveCurrentStep',
-        payload: 'result',
+        type: "saveCurrentStep",
+        payload: "result",
       });
     },
   },

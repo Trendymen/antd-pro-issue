@@ -1,9 +1,9 @@
-import { Avatar, List } from 'antd';
+import { Avatar, List } from "antd";
 
-import React from 'react';
-import classNames from 'classnames';
-import { NoticeIconData } from './index';
-import styles from './NoticeList.less';
+import React from "react";
+import classNames from "classnames";
+import { NoticeIconData } from "./index";
+import styles from "./NoticeList.less";
 
 export interface NoticeIconTabProps {
   count?: number;
@@ -56,7 +56,7 @@ const NoticeList: React.SFC<NoticeIconTabProps> = ({
           });
           // eslint-disable-next-line no-nested-ternary
           const leftIcon = item.avatar ? (
-            typeof item.avatar === 'string' ? (
+            typeof item.avatar === "string" ? (
               <Avatar className={styles.avatar} src={item.avatar} />
             ) : (
               <span className={styles.iconElement}>{item.avatar}</span>

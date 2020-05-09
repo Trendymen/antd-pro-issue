@@ -1,8 +1,8 @@
-import { Subscription, Reducer, Effect } from 'umi';
+import { Subscription, Reducer, Effect } from "umi";
 
-import { NoticeIconData } from '@/components/NoticeIcon';
-import { queryNotices } from '@/services/user';
-import { ConnectState } from './connect.d';
+import { NoticeIconData } from "@/components/NoticeIcon";
+import { queryNotices } from "@/services/user";
+import { ConnectState } from "./connect.d";
 
 export interface NoticeItem extends NoticeIconData {
   id: string;
@@ -16,7 +16,7 @@ export interface GlobalModelState {
 }
 
 export interface GlobalModelType {
-  namespace: 'global';
+  namespace: "global";
   state: GlobalModelState;
   effects: {
     fetchNotices: Effect;
@@ -32,7 +32,7 @@ export interface GlobalModelType {
 }
 
 const GlobalModel: GlobalModelType = {
-  namespace: 'global',
+  namespace: "global",
 
   state: {
     collapsed: false,
@@ -43,14 +43,15 @@ const GlobalModel: GlobalModelType = {
     *fetchNotices(_, { call, put, select }) {
       const data = yield call(queryNotices);
       yield put({
-        type: 'saveNotices',
+        type: "saveNotices",
         payload: data,
       });
       const unreadCount: number = yield select(
-        (state: ConnectState) => state.global.notices.filter((item) => !item.read).length,
+        (state: ConnectState) =>
+          state.global.notices.filter((item) => !item.read).length
       );
       yield put({
-        type: 'user/changeNotifyCount',
+        type: "user/changeNotifyCount",
         payload: {
           totalCount: data.length,
           unreadCount,
@@ -59,15 +60,18 @@ const GlobalModel: GlobalModelType = {
     },
     *clearNotices({ payload }, { put, select }) {
       yield put({
-        type: 'saveClearedNotices',
+        type: "saveClearedNotices",
         payload,
       });
-      const count: number = yield select((state: ConnectState) => state.global.notices.length);
+      const count: number = yield select(
+        (state: ConnectState) => state.global.notices.length
+      );
       const unreadCount: number = yield select(
-        (state: ConnectState) => state.global.notices.filter((item) => !item.read).length,
+        (state: ConnectState) =>
+          state.global.notices.filter((item) => !item.read).length
       );
       yield put({
-        type: 'user/changeNotifyCount',
+        type: "user/changeNotifyCount",
         payload: {
           totalCount: count,
           unreadCount,
@@ -82,16 +86,16 @@ const GlobalModel: GlobalModelType = {
             notice.read = true;
           }
           return notice;
-        }),
+        })
       );
 
       yield put({
-        type: 'saveNotices',
+        type: "saveNotices",
         payload: notices,
       });
 
       yield put({
-        type: 'user/changeNotifyCount',
+        type: "user/changeNotifyCount",
         payload: {
           totalCount: notices.length,
           unreadCount: notices.filter((item) => !item.read).length,
@@ -101,7 +105,10 @@ const GlobalModel: GlobalModelType = {
   },
 
   reducers: {
-    changeLayoutCollapsed(state = { notices: [], collapsed: true }, { payload }): GlobalModelState {
+    changeLayoutCollapsed(
+      state = { notices: [], collapsed: true },
+      { payload }
+    ): GlobalModelState {
       return {
         ...state,
         collapsed: payload,
@@ -114,7 +121,10 @@ const GlobalModel: GlobalModelType = {
         notices: payload,
       };
     },
-    saveClearedNotices(state = { notices: [], collapsed: true }, { payload }): GlobalModelState {
+    saveClearedNotices(
+      state = { notices: [], collapsed: true },
+      { payload }
+    ): GlobalModelState {
       return {
         collapsed: false,
         ...state,
@@ -127,8 +137,8 @@ const GlobalModel: GlobalModelType = {
     setup({ history }): void {
       // Subscribe history(url) change, trigger `load` action if pathname is `/`
       history.listen(({ pathname, search }): void => {
-        if (typeof window.ga !== 'undefined') {
-          window.ga('send', 'pageview', pathname + search);
+        if (typeof window.ga !== "undefined") {
+          window.ga("send", "pageview", pathname + search);
         }
       });
     },

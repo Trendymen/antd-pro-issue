@@ -3,22 +3,33 @@ import {
   EditOutlined,
   EllipsisOutlined,
   ShareAltOutlined,
-} from '@ant-design/icons';
-import { Avatar, Card, Col, Dropdown, List, Menu, Row, Select, Tooltip, Form } from 'antd';
-import React, { FC, useEffect } from 'react';
-import { connect, Dispatch } from 'umi';
-import numeral from 'numeral';
-import { ListItemDataType } from './data.d';
-import StandardFormRow from './components/StandardFormRow';
-import TagSelect from './components/TagSelect';
-import styles from './style.less';
-import { StateType } from './model';
+} from "@ant-design/icons";
+import {
+  Avatar,
+  Card,
+  Col,
+  Dropdown,
+  List,
+  Menu,
+  Row,
+  Select,
+  Tooltip,
+  Form,
+} from "antd";
+import React, { FC, useEffect } from "react";
+import { connect, Dispatch } from "umi";
+import numeral from "numeral";
+import { ListItemDataType } from "./data.d";
+import StandardFormRow from "./components/StandardFormRow";
+import TagSelect from "./components/TagSelect";
+import styles from "./style.less";
+import { StateType } from "./model";
 
 const { Option } = Select;
 
 export function formatWan(val: number) {
   const v = val * 1;
-  if (!v || Number.isNaN(v)) return '';
+  if (!v || Number.isNaN(v)) return "";
 
   let result: React.ReactNode = val;
   if (val > 10000) {
@@ -27,10 +38,10 @@ export function formatWan(val: number) {
         {Math.floor(val / 10000)}
         <span
           style={{
-            position: 'relative',
+            position: "relative",
             top: -2,
             fontSize: 14,
-            fontStyle: 'normal',
+            fontStyle: "normal",
             marginLeft: 2,
           }}
         >
@@ -43,7 +54,7 @@ export function formatWan(val: number) {
 }
 
 interface ApplicationsProps {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   listAndsearchAndapplications: StateType;
   loading: boolean;
 }
@@ -80,16 +91,16 @@ export const Applications: FC<ApplicationsProps> = (props) => {
 
   useEffect(() => {
     dispatch({
-      type: 'listAndsearchAndapplications/fetch',
+      type: "listAndsearchAndapplications/fetch",
       payload: {
         count: 8,
       },
     });
-  }, [1]);
+  }, [dispatch]);
 
   const handleValuesChange = () => {
     dispatch({
-      type: 'listAndsearchAndapplications/fetch',
+      type: "listAndsearchAndapplications/fetch",
       payload: {
         count: 8,
       },
@@ -99,17 +110,29 @@ export const Applications: FC<ApplicationsProps> = (props) => {
   const itemMenu = (
     <Menu>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.alipay.com/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.alipay.com/"
+        >
           1st menu item
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.taobao.com/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.taobao.com/"
+        >
           2nd menu item
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.tmall.com/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.tmall.com/"
+        >
           3d menu item
         </a>
       </Menu.Item>
@@ -142,14 +165,20 @@ export const Applications: FC<ApplicationsProps> = (props) => {
             <Row gutter={16}>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <Form.Item {...formItemLayout} name="author" label="作者">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: "100%" }}
+                  >
                     <Option value="lisa">王昭君</Option>
                   </Select>
                 </Form.Item>
               </Col>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <Form.Item {...formItemLayout} name="rate" label="好评度">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: "100%" }}
+                  >
                     <Option value="good">优秀</Option>
                     <Option value="normal">普通</Option>
                   </Select>
@@ -185,11 +214,14 @@ export const Applications: FC<ApplicationsProps> = (props) => {
                 </Dropdown>,
               ]}
             >
-              <Card.Meta avatar={<Avatar size="small" src={item.avatar} />} title={item.title} />
+              <Card.Meta
+                avatar={<Avatar size="small" src={item.avatar} />}
+                title={item.title}
+              />
               <div className={styles.cardItemContent}>
                 <CardInfo
                   activeUser={formatWan(item.activeUser)}
-                  newUser={numeral(item.newUser).format('0,0')}
+                  newUser={numeral(item.newUser).format("0,0")}
                 />
               </div>
             </Card>
@@ -210,5 +242,5 @@ export default connect(
   }) => ({
     listAndsearchAndapplications,
     loading: loading.models.listAndsearchAndapplications,
-  }),
+  })
 )(Applications);

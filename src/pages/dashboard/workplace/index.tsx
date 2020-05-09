@@ -1,39 +1,44 @@
-import { Avatar, Card, Col, List, Skeleton, Row, Statistic } from 'antd';
-import React, { Component } from 'react';
+import { Avatar, Card, Col, List, Skeleton, Row, Statistic } from "antd";
+import React, { Component } from "react";
 
-import { Link, Dispatch, connect } from 'umi';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import moment from 'moment';
-import Radar from './components/Radar';
-import { ModalState } from './model';
-import EditableLinkGroup from './components/EditableLinkGroup';
-import styles from './style.less';
-import { ActivitiesType, CurrentUser, NoticeType, RadarDataType } from './data.d';
+import { Link, Dispatch, connect } from "umi";
+import { PageHeaderWrapper } from "@ant-design/pro-layout";
+import moment from "moment";
+import Radar from "./components/Radar";
+import { ModalState } from "./model";
+import EditableLinkGroup from "./components/EditableLinkGroup";
+import styles from "./style.less";
+import {
+  ActivitiesType,
+  CurrentUser,
+  NoticeType,
+  RadarDataType,
+} from "./data.d";
 
 const links = [
   {
-    title: '操作一',
-    href: '',
+    title: "操作一",
+    href: "",
   },
   {
-    title: '操作二',
-    href: '',
+    title: "操作二",
+    href: "",
   },
   {
-    title: '操作三',
-    href: '',
+    title: "操作三",
+    href: "",
   },
   {
-    title: '操作四',
-    href: '',
+    title: "操作四",
+    href: "",
   },
   {
-    title: '操作五',
-    href: '',
+    title: "操作五",
+    href: "",
   },
   {
-    title: '操作六',
-    href: '',
+    title: "操作六",
+    href: "",
   },
 ];
 
@@ -42,13 +47,15 @@ interface WorkplaceProps {
   projectNotice: NoticeType[];
   activities: ActivitiesType[];
   radarData: RadarDataType[];
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   currentUserLoading: boolean;
   projectLoading: boolean;
   activitiesLoading: boolean;
 }
 
-const PageHeaderContent: React.FC<{ currentUser: CurrentUser }> = ({ currentUser }) => {
+const PageHeaderContent: React.FC<{ currentUser: CurrentUser }> = ({
+  currentUser,
+}) => {
   const loading = currentUser && Object.keys(currentUser).length;
   if (!loading) {
     return <Skeleton avatar paragraph={{ rows: 1 }} active />;
@@ -90,14 +97,14 @@ class Workplace extends Component<WorkplaceProps> {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'dashboardAndworkplace/init',
+      type: "dashboardAndworkplace/init",
     });
   }
 
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'dashboardAndworkplace/clear',
+      type: "dashboardAndworkplace/clear",
     });
   }
 
@@ -175,9 +182,12 @@ class Workplace extends Component<WorkplaceProps> {
                       description={item.description}
                     />
                     <div className={styles.projectItemContent}>
-                      <Link to={item.memberLink}>{item.member || ''}</Link>
+                      <Link to={item.memberLink}>{item.member || ""}</Link>
                       {item.updatedAt && (
-                        <span className={styles.datetime} title={item.updatedAt}>
+                        <span
+                          className={styles.datetime}
+                          title={item.updatedAt}
+                        >
                           {moment(item.updatedAt).fromNow()}
                         </span>
                       )}
@@ -209,7 +219,12 @@ class Workplace extends Component<WorkplaceProps> {
               bordered={false}
               bodyStyle={{ padding: 0 }}
             >
-              <EditableLinkGroup onAdd={() => {}} links={links} linkElement={Link} />
+              <EditableLinkGroup
+                /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+                onAdd={() => {}}
+                links={links}
+                linkElement={Link}
+              />
             </Card>
             <Card
               style={{ marginBottom: 24 }}
@@ -249,7 +264,12 @@ class Workplace extends Component<WorkplaceProps> {
 
 export default connect(
   ({
-    dashboardAndworkplace: { currentUser, projectNotice, activities, radarData },
+    dashboardAndworkplace: {
+      currentUser,
+      projectNotice,
+      activities,
+      radarData,
+    },
     loading,
   }: {
     dashboardAndworkplace: ModalState;
@@ -263,8 +283,10 @@ export default connect(
     projectNotice,
     activities,
     radarData,
-    currentUserLoading: loading.effects['dashboardAndworkplace/fetchUserCurrent'],
-    projectLoading: loading.effects['dashboardAndworkplace/fetchProjectNotice'],
-    activitiesLoading: loading.effects['dashboardAndworkplace/fetchActivitiesList'],
-  }),
+    currentUserLoading:
+      loading.effects["dashboardAndworkplace/fetchUserCurrent"],
+    projectLoading: loading.effects["dashboardAndworkplace/fetchProjectNotice"],
+    activitiesLoading:
+      loading.effects["dashboardAndworkplace/fetchActivitiesList"],
+  })
 )(Workplace);

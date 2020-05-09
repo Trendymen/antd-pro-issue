@@ -1,13 +1,13 @@
-import { Card, Col, Row, Statistic } from 'antd';
-import { FormattedMessage, connect, formatMessage, Dispatch } from 'umi';
-import React, { Component } from 'react';
+import { Card, Col, Row, Statistic } from "antd";
+import { FormattedMessage, connect, formatMessage, Dispatch } from "umi";
+import React, { Component } from "react";
 
-import { GridContent } from '@ant-design/pro-layout';
-import numeral from 'numeral';
-import { StateType } from './model';
-import { Pie, WaterWave, Gauge, TagCloud, Map } from './components/Charts';
-import ActiveChart from './components/ActiveChart';
-import styles from './style.less';
+import { GridContent } from "@ant-design/pro-layout";
+import numeral from "numeral";
+import { StateType } from "./model";
+import { Pie, WaterWave, Gauge, TagCloud, Map } from "./components/Charts";
+import ActiveChart from "./components/ActiveChart";
+import styles from "./style.less";
 
 const { Countdown } = Statistic;
 
@@ -23,7 +23,7 @@ class Monitor extends Component<MonitorProps> {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'dashboardAndmonitor/fetchTags',
+      type: "dashboardAndmonitor/fetchTags",
     });
   }
 
@@ -34,7 +34,14 @@ class Monitor extends Component<MonitorProps> {
       <GridContent>
         <React.Fragment>
           <Row gutter={24}>
-            <Col xl={18} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
+            <Col
+              xl={18}
+              lg={24}
+              md={24}
+              sm={24}
+              xs={24}
+              style={{ marginBottom: 24 }}
+            >
               <Card
                 title={
                   <FormattedMessage
@@ -54,7 +61,7 @@ class Monitor extends Component<MonitorProps> {
                         />
                       }
                       suffix="元"
-                      value={numeral(124543233).format('0,0')}
+                      value={numeral(124543233).format("0,0")}
                     />
                   </Col>
                   <Col md={6} sm={12} xs={24}>
@@ -89,7 +96,7 @@ class Monitor extends Component<MonitorProps> {
                         />
                       }
                       suffix="元"
-                      value={numeral(234).format('0,0')}
+                      value={numeral(234).format("0,0")}
                     />
                   </Col>
                 </Row>
@@ -119,13 +126,13 @@ class Monitor extends Component<MonitorProps> {
                   />
                 }
                 style={{ marginBottom: 24 }}
-                bodyStyle={{ textAlign: 'center' }}
+                bodyStyle={{ textAlign: "center" }}
                 bordered={false}
               >
                 <Gauge
                   title={formatMessage({
-                    id: 'dashboardandmonitor.monitor.ratio',
-                    defaultMessage: 'Ratio',
+                    id: "dashboardandmonitor.monitor.ratio",
+                    defaultMessage: "Ratio",
                   })}
                   height={180}
                   percent={87}
@@ -145,7 +152,7 @@ class Monitor extends Component<MonitorProps> {
                 bordered={false}
                 className={styles.pieCard}
               >
-                <Row style={{ padding: '16px 0' }}>
+                <Row style={{ padding: "16px 0" }}>
                   <Col span={8}>
                     <Pie
                       animate={false}
@@ -206,7 +213,7 @@ class Monitor extends Component<MonitorProps> {
                 }
                 loading={loading}
                 bordered={false}
-                bodyStyle={{ overflow: 'hidden' }}
+                bodyStyle={{ overflow: "hidden" }}
               >
                 <TagCloud data={tags || []} height={161} />
               </Card>
@@ -219,7 +226,7 @@ class Monitor extends Component<MonitorProps> {
                     defaultMessage="Resource Surplus"
                   />
                 }
-                bodyStyle={{ textAlign: 'center', fontSize: 0 }}
+                bodyStyle={{ textAlign: "center", fontSize: 0 }}
                 bordered={false}
               >
                 <WaterWave
@@ -253,5 +260,5 @@ export default connect(
   }) => ({
     dashboardAndmonitor,
     loading: loading.models.dashboardAndmonitor,
-  }),
+  })
 )(Monitor);

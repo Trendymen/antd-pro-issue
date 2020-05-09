@@ -1,6 +1,6 @@
-import { Effect } from 'umi';
-import { message } from 'antd';
-import { fakeSubmitForm } from './service';
+import { Effect } from "umi";
+import { message } from "antd";
+import { fakeSubmitForm } from "./service";
 
 export interface ModelType {
   namespace: string;
@@ -11,14 +11,14 @@ export interface ModelType {
 }
 
 const Model: ModelType = {
-  namespace: 'formAndadvancedForm',
+  namespace: "formAndadvancedForm",
 
   state: {},
 
   effects: {
     *submitAdvancedForm({ payload }, { call }) {
       yield call(fakeSubmitForm, payload);
-      message.success('提交成功');
+      message.success("提交成功");
     },
   },
 };

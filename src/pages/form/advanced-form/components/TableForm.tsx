@@ -1,8 +1,8 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Divider, Input, Popconfirm, Table, message } from 'antd';
-import React, { FC, useState } from 'react';
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Divider, Input, Popconfirm, Table, message } from "antd";
+import React, { FC, useState } from "react";
 
-import styles from '../style.less';
+import styles from "../style.less";
 
 interface TableFormDateType {
   key: string;
@@ -27,7 +27,10 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
   const getRowByKey = (key: string, newData?: TableFormDateType[]) =>
     (newData || data)?.filter((item) => item.key === key)[0];
 
-  const toggleEditable = (e: React.MouseEvent | React.KeyboardEvent, key: string) => {
+  const toggleEditable = (
+    e: React.MouseEvent | React.KeyboardEvent,
+    key: string
+  ) => {
     e.preventDefault();
     const newData = data?.map((item) => ({ ...item }));
     const target = getRowByKey(key, newData);
@@ -46,9 +49,9 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
     // eslint-disable-next-line no-unused-expressions
     newData?.push({
       key: `NEW_TEMP_ID_${index}`,
-      workId: '',
-      name: '',
-      department: '',
+      workId: "",
+      name: "",
+      department: "",
       editable: true,
       isNew: true,
     });
@@ -57,7 +60,9 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
   };
 
   const remove = (key: string) => {
-    const newData = data?.filter((item) => item.key !== key) as TableFormDateType[];
+    const newData = data?.filter(
+      (item) => item.key !== key
+    ) as TableFormDateType[];
     setData(newData);
     if (onChange) {
       onChange(newData);
@@ -67,7 +72,7 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
   const handleFieldChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     fieldName: string,
-    key: string,
+    key: string
   ) => {
     const newData = [...(data as TableFormDateType[])];
     const target = getRowByKey(key, newData);
@@ -87,7 +92,7 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
       }
       const target = getRowByKey(key) || ({} as any);
       if (!target.workId || !target.name || !target.department) {
-        message.error('请填写完整成员信息。');
+        message.error("请填写完整成员信息。");
         (e.target as HTMLInputElement).focus();
         setLoading(false);
         return;
@@ -102,7 +107,7 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent, key: string) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       saveRow(e, key);
     }
   };
@@ -134,17 +139,17 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
 
   const columns = [
     {
-      title: '成员姓名',
-      dataIndex: 'name',
-      key: 'name',
-      width: '20%',
+      title: "成员姓名",
+      dataIndex: "name",
+      key: "name",
+      width: "20%",
       render: (text: string, record: TableFormDateType) => {
         if (record.editable) {
           return (
             <Input
               value={text}
               autoFocus
-              onChange={(e) => handleFieldChange(e, 'name', record.key)}
+              onChange={(e) => handleFieldChange(e, "name", record.key)}
               onKeyPress={(e) => handleKeyPress(e, record.key)}
               placeholder="成员姓名"
             />
@@ -154,16 +159,16 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
       },
     },
     {
-      title: '工号',
-      dataIndex: 'workId',
-      key: 'workId',
-      width: '20%',
+      title: "工号",
+      dataIndex: "workId",
+      key: "workId",
+      width: "20%",
       render: (text: string, record: TableFormDateType) => {
         if (record.editable) {
           return (
             <Input
               value={text}
-              onChange={(e) => handleFieldChange(e, 'workId', record.key)}
+              onChange={(e) => handleFieldChange(e, "workId", record.key)}
               onKeyPress={(e) => handleKeyPress(e, record.key)}
               placeholder="工号"
             />
@@ -173,16 +178,16 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
       },
     },
     {
-      title: '所属部门',
-      dataIndex: 'department',
-      key: 'department',
-      width: '40%',
+      title: "所属部门",
+      dataIndex: "department",
+      key: "department",
+      width: "40%",
       render: (text: string, record: TableFormDateType) => {
         if (record.editable) {
           return (
             <Input
               value={text}
-              onChange={(e) => handleFieldChange(e, 'department', record.key)}
+              onChange={(e) => handleFieldChange(e, "department", record.key)}
               onKeyPress={(e) => handleKeyPress(e, record.key)}
               placeholder="所属部门"
             />
@@ -192,8 +197,8 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
       },
     },
     {
-      title: '操作',
-      key: 'action',
+      title: "操作",
+      key: "action",
       render: (text: string, record: TableFormDateType) => {
         if (!!record.editable && loading) {
           return null;
@@ -204,7 +209,10 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
               <span>
                 <a onClick={(e) => saveRow(e, record.key)}>添加</a>
                 <Divider type="vertical" />
-                <Popconfirm title="是否要删除此行？" onConfirm={() => remove(record.key)}>
+                <Popconfirm
+                  title="是否要删除此行？"
+                  onConfirm={() => remove(record.key)}
+                >
                   <a>删除</a>
                 </Popconfirm>
               </span>
@@ -222,7 +230,10 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
           <span>
             <a onClick={(e) => toggleEditable(e, record.key)}>编辑</a>
             <Divider type="vertical" />
-            <Popconfirm title="是否要删除此行？" onConfirm={() => remove(record.key)}>
+            <Popconfirm
+              title="是否要删除此行？"
+              onConfirm={() => remove(record.key)}
+            >
               <a>删除</a>
             </Popconfirm>
           </span>
@@ -238,10 +249,10 @@ const TableForm: FC<TableFormProps> = ({ value, onChange }) => {
         columns={columns}
         dataSource={data}
         pagination={false}
-        rowClassName={(record) => (record.editable ? styles.editable : '')}
+        rowClassName={(record) => (record.editable ? styles.editable : "")}
       />
       <Button
-        style={{ width: '100%', marginTop: 16, marginBottom: 8 }}
+        style={{ width: "100%", marginTop: 16, marginBottom: 8 }}
         type="dashed"
         onClick={newMember}
       >

@@ -1,7 +1,7 @@
-import React from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card, Typography, Alert } from 'antd';
-import styles from './Welcome.less';
+import React from "react";
+import { PageHeaderWrapper } from "@ant-design/pro-layout";
+import { Card, Typography, Alert } from "antd";
+import styles from "./Welcome.less";
 
 const CodePreview: React.FC<{}> = ({ children }) => (
   <pre className={styles.pre}>
@@ -25,7 +25,11 @@ export default (): React.ReactNode => (
         }}
       />
       <Typography.Text strong>
-        <a target="_blank" rel="noopener noreferrer" href="https://pro.ant.design/docs/block">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://pro.ant.design/docs/block"
+        >
           基于 block 开发，快速构建标准页面
         </a>
       </Typography.Text>
@@ -48,12 +52,16 @@ export default (): React.ReactNode => (
     </Card>
     <p
       style={{
-        textAlign: 'center',
+        textAlign: "center",
         marginTop: 24,
       }}
     >
-      Want to add more pages? Please refer to{' '}
-      <a href="https://pro.ant.design/docs/block-cn" target="_blank" rel="noopener noreferrer">
+      Want to add more pages? Please refer to{" "}
+      <a
+        href="https://pro.ant.design/docs/block-cn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         use block
       </a>
       。

@@ -1,42 +1,42 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
 function getFakeCaptcha(req: Request, res: Response) {
-  return res.json('captcha-xxx');
+  return res.json("captcha-xxx");
 }
 
 export default {
-  'POST  /api/login/account': (req: Request, res: Response) => {
+  "POST  /api/login/account": (req: Request, res: Response) => {
     const { password, userName, type } = req.body;
-    if (password === 'ant.design' && userName === 'admin') {
+    if (password === "ant.design" && userName === "admin") {
       res.send({
-        status: 'ok',
+        status: "ok",
         type,
-        currentAuthority: 'admin',
+        currentAuthority: "admin",
       });
       return;
     }
-    if (password === 'ant.design' && userName === 'user') {
+    if (password === "ant.design" && userName === "user") {
       res.send({
-        status: 'ok',
+        status: "ok",
         type,
-        currentAuthority: 'user',
+        currentAuthority: "user",
       });
       return;
     }
-    if (type === 'mobile') {
+    if (type === "mobile") {
       res.send({
-        status: 'ok',
+        status: "ok",
         type,
-        currentAuthority: 'admin',
+        currentAuthority: "admin",
       });
       return;
     }
     res.send({
-      status: 'error',
+      status: "error",
       type,
-      currentAuthority: 'guest',
+      currentAuthority: "guest",
     });
   },
-  'GET  /api/login/captcha': getFakeCaptcha,
+  "GET  /api/login/captcha": getFakeCaptcha,
 };

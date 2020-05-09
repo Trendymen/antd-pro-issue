@@ -1,12 +1,12 @@
-import { Card, List } from 'antd';
-import React from 'react';
+import { Card, List } from "antd";
+import React from "react";
 
-import { connect } from 'umi';
-import moment from 'moment';
-import AvatarList from '../AvatarList';
-import { ListItemDataType } from '../../data.d';
-import { ModalState } from '../../model';
-import styles from './index.less';
+import { connect } from "umi";
+import moment from "moment";
+import AvatarList from "../AvatarList";
+import { ListItemDataType } from "../../data.d";
+import { ModalState } from "../../model";
+import styles from "./index.less";
 
 const Projects: React.FC<Partial<ModalState>> = (props) => {
   const { list } = props;
@@ -18,8 +18,15 @@ const Projects: React.FC<Partial<ModalState>> = (props) => {
       dataSource={list}
       renderItem={(item) => (
         <List.Item>
-          <Card className={styles.card} hoverable cover={<img alt={item.title} src={item.cover} />}>
-            <Card.Meta title={<a>{item.title}</a>} description={item.subDescription} />
+          <Card
+            className={styles.card}
+            hoverable
+            cover={<img alt={item.title} src={item.cover} />}
+          >
+            <Card.Meta
+              title={<a>{item.title}</a>}
+              description={item.subDescription}
+            />
             <div className={styles.cardItemContent}>
               <span>{moment(item.updatedAt).fromNow()}</span>
               <div className={styles.avatarList}>
@@ -41,6 +48,8 @@ const Projects: React.FC<Partial<ModalState>> = (props) => {
   );
 };
 
-export default connect(({ accountAndcenter }: { accountAndcenter: ModalState }) => ({
-  list: accountAndcenter.list,
-}))(Projects);
+export default connect(
+  ({ accountAndcenter }: { accountAndcenter: ModalState }) => ({
+    list: accountAndcenter.list,
+  })
+)(Projects);

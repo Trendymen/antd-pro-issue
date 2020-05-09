@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, Input, Select, Form } from 'antd';
-import { withPropsAPI } from 'gg-editor';
+import React from "react";
+import { Card, Input, Select, Form } from "antd";
+import { withPropsAPI } from "gg-editor";
 
 const upperFirst = (str: string) =>
   str.toLowerCase().replace(/( |^)[a-z]/g, (l: string) => l.toUpperCase());
@@ -45,7 +45,9 @@ class DetailForm extends React.Component<DetailFormProps> {
     }, 0);
   };
 
-  handleInputBlur = (type: string) => (e: React.FormEvent<HTMLInputElement>) => {
+  handleInputBlur = (type: string) => (
+    e: React.FormEvent<HTMLInputElement>
+  ) => {
     e.preventDefault();
     this.handleFieldChange({
       [type]: e.currentTarget.value,
@@ -58,22 +60,24 @@ class DetailForm extends React.Component<DetailFormProps> {
     return (
       <Form initialValues={{ label }}>
         <Item label="Label" name="label" {...inlineFormItemLayout}>
-          <Input onBlur={this.handleInputBlur('label')} />
+          <Input onBlur={this.handleInputBlur("label")} />
         </Item>
       </Form>
     );
   };
 
   renderEdgeDetail = () => {
-    const { label = '', shape = 'flow-smooth' } = this.item.getModel();
+    const { label = "", shape = "flow-smooth" } = this.item.getModel();
 
     return (
       <Form initialValues={{ label, shape }}>
         <Item label="Label" name="label" {...inlineFormItemLayout}>
-          <Input onBlur={this.handleInputBlur('label')} />
+          <Input onBlur={this.handleInputBlur("label")} />
         </Item>
         <Item label="Shape" name="shape" {...inlineFormItemLayout}>
-          <Select onChange={(value) => this.handleFieldChange({ shape: value })}>
+          <Select
+            onChange={(value) => this.handleFieldChange({ shape: value })}
+          >
             <Option value="flow-smooth">Smooth</Option>
             <Option value="flow-polyline">Polyline</Option>
             <Option value="flow-polyline-round">Polyline Round</Option>
@@ -84,12 +88,12 @@ class DetailForm extends React.Component<DetailFormProps> {
   };
 
   renderGroupDetail = () => {
-    const { label = '新建分组' } = this.item.getModel();
+    const { label = "新建分组" } = this.item.getModel();
 
     return (
       <Form initialValues={{ label }}>
         <Item label="Label" name="label" {...inlineFormItemLayout}>
-          <Input onBlur={this.handleInputBlur('label')} />
+          <Input onBlur={this.handleInputBlur("label")} />
         </Item>
       </Form>
     );
@@ -103,9 +107,9 @@ class DetailForm extends React.Component<DetailFormProps> {
 
     return (
       <Card type="inner" size="small" title={upperFirst(type)} bordered={false}>
-        {type === 'node' && this.renderNodeDetail()}
-        {type === 'edge' && this.renderEdgeDetail()}
-        {type === 'group' && this.renderGroupDetail()}
+        {type === "node" && this.renderNodeDetail()}
+        {type === "edge" && this.renderEdgeDetail()}
+        {type === "group" && this.renderGroupDetail()}
       </Card>
     );
   }

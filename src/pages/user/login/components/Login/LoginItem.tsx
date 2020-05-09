@@ -1,12 +1,12 @@
-import { Button, Col, Input, Row, Form, message } from 'antd';
-import React, { useState, useCallback, useEffect } from 'react';
+import { Button, Col, Input, Row, Form, message } from "antd";
+import React, { useState, useCallback, useEffect } from "react";
 
-import omit from 'omit.js';
-import { FormItemProps } from 'antd/es/form/FormItem';
-import ItemMap from './map';
-import LoginContext, { LoginContextProps } from './LoginContext';
-import styles from './index.less';
-import { getFakeCaptcha } from '../../service';
+import omit from "omit.js";
+import { FormItemProps } from "antd/es/form/FormItem";
+import ItemMap from "./map";
+import LoginContext, { LoginContextProps } from "./LoginContext";
+import styles from "./index.less";
+import { getFakeCaptcha } from "../../service";
 
 export type WrappedLoginItemProps = LoginItemProps;
 export type LoginItemKeyType = keyof typeof ItemMap;
@@ -25,12 +25,12 @@ export interface LoginItemProps extends Partial<FormItemProps> {
   countDown?: number;
   getCaptchaButtonText?: string;
   getCaptchaSecondText?: string;
-  updateActive?: LoginContextProps['updateActive'];
+  updateActive?: LoginContextProps["updateActive"];
   type?: string;
   defaultValue?: string;
   customProps?: { [key: string]: unknown };
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  tabUtil?: LoginContextProps['tabUtil'];
+  tabUtil?: LoginContextProps["tabUtil"];
 }
 
 const FormItem = Form.Item;
@@ -42,11 +42,11 @@ const getFormItemOptions = ({
   rules,
 }: LoginItemProps) => {
   const options: {
-    rules?: LoginItemProps['rules'];
-    onChange?: LoginItemProps['onChange'];
-    initialValue?: LoginItemProps['defaultValue'];
+    rules?: LoginItemProps["rules"];
+    onChange?: LoginItemProps["onChange"];
+    initialValue?: LoginItemProps["defaultValue"];
   } = {
-    rules: rules || (customProps.rules as LoginItemProps['rules']),
+    rules: rules || (customProps.rules as LoginItemProps["rules"]),
   };
   if (onChange) {
     options.onChange = onChange;
@@ -80,12 +80,12 @@ const LoginItem: React.FC<LoginItemProps> = (props) => {
     if (result === false) {
       return;
     }
-    message.success('获取验证码成功！验证码为：1234');
+    message.success("获取验证码成功！验证码为：1234");
     setTiming(true);
   }, []);
 
   useEffect(() => {
-    let interval: number = 0;
+    let interval = 0;
     const { countDown } = props;
     if (timing) {
       interval = window.setInterval(() => {
@@ -101,7 +101,7 @@ const LoginItem: React.FC<LoginItemProps> = (props) => {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [timing]);
+  }, [props, timing]);
   if (!name) {
     return null;
   }
@@ -109,8 +109,8 @@ const LoginItem: React.FC<LoginItemProps> = (props) => {
   const options = getFormItemOptions(props);
   const otherProps = restProps || {};
 
-  if (type === 'Captcha') {
-    const inputProps = omit(otherProps, ['onGetCaptcha', 'countDown']);
+  if (type === "Captcha") {
+    const inputProps = omit(otherProps, ["onGetCaptcha", "countDown"]);
 
     return (
       <FormItem shouldUpdate>
@@ -127,11 +127,11 @@ const LoginItem: React.FC<LoginItemProps> = (props) => {
                 className={styles.getCaptcha}
                 size="large"
                 onClick={() => {
-                  const value = getFieldValue('mobile');
+                  const value = getFieldValue("mobile");
                   onGetCaptcha(value);
                 }}
               >
-                {timing ? `${count} 秒` : '获取验证码'}
+                {timing ? `${count} 秒` : "获取验证码"}
               </Button>
             </Col>
           </Row>

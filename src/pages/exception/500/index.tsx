@@ -1,13 +1,13 @@
-import { Link } from 'umi';
-import { Result, Button } from 'antd';
-import React from 'react';
+import { Link } from "umi";
+import { Result, Button } from "antd";
+import React from "react";
 
 export default () => (
   <Result
     status="500"
     title="500"
     style={{
-      background: 'none',
+      background: "none",
     }}
     subTitle="Sorry, the server is reporting an error."
     extra={

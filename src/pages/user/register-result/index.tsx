@@ -1,9 +1,9 @@
-import { Button, Result } from 'antd';
-import { FormattedMessage, formatMessage, Link } from 'umi';
-import React from 'react';
-import { RouteChildrenProps } from 'react-router';
+import { Button, Result } from "antd";
+import { FormattedMessage, formatMessage, Link } from "umi";
+import React from "react";
+import { RouteChildrenProps } from "react-router";
 
-import styles from './style.less';
+import styles from "./style.less";
 
 const actions = (
   <div className={styles.actions}>
@@ -28,11 +28,17 @@ const RegisterResult: React.FC<RouteChildrenProps> = ({ location }) => (
       <div className={styles.title}>
         <FormattedMessage
           id="userandregister-result.register-result.msg"
-          values={{ email: location.state ? location.state.account : 'AntDesign@example.com' }}
+          values={{
+            email: location.state
+              ? location.state.account
+              : "AntDesign@example.com",
+          }}
         />
       </div>
     }
-    subTitle={formatMessage({ id: 'userandregister-result.register-result.activation-email' })}
+    subTitle={formatMessage({
+      id: "userandregister-result.register-result.activation-email",
+    })}
     extra={actions}
   />
 );

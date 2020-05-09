@@ -1,11 +1,11 @@
-import { Card, Col, Row, Tabs } from 'antd';
-import { FormattedMessage, formatMessage } from 'umi';
-import React from 'react';
-import { OfflineChartData, OfflineDataType } from '../data.d';
+import { Card, Col, Row, Tabs } from "antd";
+import { FormattedMessage, formatMessage } from "umi";
+import React from "react";
+import { OfflineChartData, OfflineDataType } from "../data.d";
 
-import { TimelineChart, Pie } from './Charts';
-import NumberInfo from './NumberInfo';
-import styles from '../style.less';
+import { TimelineChart, Pie } from "./Charts";
+import NumberInfo from "./NumberInfo";
+import styles from "../style.less";
 
 const CustomTab = ({
   data,
@@ -14,7 +14,7 @@ const CustomTab = ({
   data: OfflineDataType;
   currentTabKey: string;
 }) => (
-  <Row gutter={8} style={{ width: 138, margin: '8px 0' }} type="flex">
+  <Row gutter={8} style={{ width: 138, margin: "8px 0" }} type="flex">
     <Col span={12}>
       <NumberInfo
         title={data.name}
@@ -26,7 +26,7 @@ const CustomTab = ({
         }
         gap={2}
         total={`${data.cvr * 100}%`}
-        theme={currentKey !== data.name ? 'light' : undefined}
+        theme={currentKey !== data.name ? "light" : undefined}
       />
     </Col>
     <Col span={12} style={{ paddingTop: 36 }}>
@@ -57,17 +57,29 @@ const OfflineData = ({
   offlineChartData: OfflineChartData[];
   handleTabChange: (activeKey: string) => void;
 }) => (
-  <Card loading={loading} className={styles.offlineCard} bordered={false} style={{ marginTop: 32 }}>
+  <Card
+    loading={loading}
+    className={styles.offlineCard}
+    bordered={false}
+    style={{ marginTop: 32 }}
+  >
     <Tabs activeKey={activeKey} onChange={handleTabChange}>
       {offlineData.map((shop) => (
-        <TabPane tab={<CustomTab data={shop} currentTabKey={activeKey} />} key={shop.name}>
-          <div style={{ padding: '0 24px' }}>
+        <TabPane
+          tab={<CustomTab data={shop} currentTabKey={activeKey} />}
+          key={shop.name}
+        >
+          <div style={{ padding: "0 24px" }}>
             <TimelineChart
               height={400}
               data={offlineChartData}
               titleMap={{
-                y1: formatMessage({ id: 'dashboardandanalysis.analysis.traffic' }),
-                y2: formatMessage({ id: 'dashboardandanalysis.analysis.payments' }),
+                y1: formatMessage({
+                  id: "dashboardandanalysis.analysis.traffic",
+                }),
+                y2: formatMessage({
+                  id: "dashboardandanalysis.analysis.payments",
+                }),
               }}
             />
           </div>

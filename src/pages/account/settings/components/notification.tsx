@@ -1,7 +1,7 @@
-import { List, Switch } from 'antd';
-import React, { Component, Fragment } from 'react';
+import { List, Switch } from "antd";
+import React, { Component, Fragment } from "react";
 
-import { formatMessage } from 'umi';
+import { formatMessage } from "umi";
 
 type Unpacked<T> = T extends (infer U)[] ? U : T;
 
@@ -9,31 +9,47 @@ class NotificationView extends Component {
   getData = () => {
     const Action = (
       <Switch
-        checkedChildren={formatMessage({ id: 'accountandsettings.settings.open' })}
-        unCheckedChildren={formatMessage({ id: 'accountandsettings.settings.close' })}
+        checkedChildren={formatMessage({
+          id: "accountandsettings.settings.open",
+        })}
+        unCheckedChildren={formatMessage({
+          id: "accountandsettings.settings.close",
+        })}
         defaultChecked
       />
     );
     return [
       {
-        title: formatMessage({ id: 'accountandsettings.notification.password' }, {}),
+        title: formatMessage(
+          { id: "accountandsettings.notification.password" },
+          {}
+        ),
         description: formatMessage(
-          { id: 'accountandsettings.notification.password-description' },
-          {},
+          { id: "accountandsettings.notification.password-description" },
+          {}
         ),
         actions: [Action],
       },
       {
-        title: formatMessage({ id: 'accountandsettings.notification.messages' }, {}),
+        title: formatMessage(
+          { id: "accountandsettings.notification.messages" },
+          {}
+        ),
         description: formatMessage(
-          { id: 'accountandsettings.notification.messages-description' },
-          {},
+          { id: "accountandsettings.notification.messages-description" },
+          {}
         ),
         actions: [Action],
       },
       {
-        title: formatMessage({ id: 'accountandsettings.notification.todo' }, {}),
-        description: formatMessage({ id: 'accountandsettings.notification.todo-description' }, {}),
+        title: formatMessage(
+          { id: "accountandsettings.notification.todo" },
+          {}
+        ),
+        description: formatMessage(
+          { id: "accountandsettings.notification.todo-description" },
+          {}
+        ),
         actions: [Action],
       },
     ];
@@ -48,7 +64,10 @@ class NotificationView extends Component {
           dataSource={data}
           renderItem={(item) => (
             <List.Item actions={item.actions}>
-              <List.Item.Meta title={item.title} description={item.description} />
+              <List.Item.Meta
+                title={item.title}
+                description={item.description}
+              />
             </List.Item>
           )}
         />

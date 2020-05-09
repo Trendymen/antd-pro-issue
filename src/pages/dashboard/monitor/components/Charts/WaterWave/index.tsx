@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import autoHeight from '../autoHeight';
-import styles from './index.less';
+import autoHeight from "../autoHeight";
+import styles from "./index.less";
 
 /* eslint no-return-assign: 0 */
 /* eslint no-mixed-operators: 0 */
@@ -20,7 +20,7 @@ class WaterWave extends Component<WaterWaveProps> {
     radio: 1,
   };
 
-  timer: number = 0;
+  timer = 0;
 
   root: HTMLDivElement | undefined | null = null;
 
@@ -30,11 +30,11 @@ class WaterWave extends Component<WaterWaveProps> {
     this.renderChart();
     this.resize();
     window.addEventListener(
-      'resize',
+      "resize",
       () => {
         requestAnimationFrame(() => this.resize());
       },
-      { passive: true },
+      { passive: true }
     );
   }
 
@@ -42,16 +42,16 @@ class WaterWave extends Component<WaterWaveProps> {
     const { percent } = this.props;
     if (props.percent !== percent) {
       // 不加这个会造成绘制缓慢
-      this.renderChart('update');
+      this.renderChart("update");
     }
   }
 
   componentWillUnmount() {
     cancelAnimationFrame(this.timer);
     if (this.node) {
-      this.node.innerHTML = '';
+      this.node.innerHTML = "";
     }
-    window.removeEventListener('resize', this.resize);
+    window.removeEventListener("resize", this.resize);
   }
 
   resize = () => {
@@ -65,9 +65,8 @@ class WaterWave extends Component<WaterWaveProps> {
   };
 
   renderChart(type?: string) {
-    const { percent, color = '#1890FF' } = this.props;
+    const { percent, color = "#1890FF" } = this.props;
     const data = percent / 100;
-    const self = this;
     cancelAnimationFrame(this.timer);
 
     if (!this.node || (data !== 0 && !data)) {
@@ -75,7 +74,7 @@ class WaterWave extends Component<WaterWaveProps> {
     }
 
     const canvas = this.node;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) {
       return;
     }
@@ -102,7 +101,11 @@ class WaterWave extends Component<WaterWaveProps> {
     const circleOffset = -(Math.PI / 2);
     let circleLock = true;
 
-    for (let i = circleOffset; i < circleOffset + 2 * Math.PI; i += 1 / (8 * Math.PI)) {
+    for (
+      let i = circleOffset;
+      i < circleOffset + 2 * Math.PI;
+      i += 1 / (8 * Math.PI)
+    ) {
       arcStack.push([radius + bR * Math.cos(i), radius + bR * Math.sin(i)]);
     }
 
@@ -135,19 +138,19 @@ class WaterWave extends Component<WaterWaveProps> {
       ctx.lineTo(startPoint[0], startPoint[1]);
 
       const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
-      gradient.addColorStop(0, '#ffffff');
+      gradient.addColorStop(0, "#ffffff");
       gradient.addColorStop(1, color);
       ctx.fillStyle = gradient;
       ctx.fill();
       ctx.restore();
     }
 
-    function render() {
+    const render = () => {
       if (!ctx) {
         return;
       }
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-      if (circleLock && type !== 'update') {
+      if (circleLock && type !== "update") {
         if (arcStack.length) {
           const temp = arcStack.shift() as number[];
           ctx.lineTo(temp[0], temp[1]);
@@ -158,7 +161,7 @@ class WaterWave extends Component<WaterWaveProps> {
           ctx.stroke();
           arcStack = [];
 
-          ctx.globalCompositeOperation = 'destination-over';
+          ctx.globalCompositeOperation = "destination-over";
           ctx.beginPath();
           ctx.lineWidth = lineWidth;
           ctx.arc(radius, radius, bR, 0, 2 * Math.PI, true);
@@ -202,8 +205,8 @@ class WaterWave extends Component<WaterWaveProps> {
         sp += 0.07;
         drawSin();
       }
-      self.timer = requestAnimationFrame(render);
-    }
+      this.timer = requestAnimationFrame(render);
+    };
     render();
   }
 
@@ -216,7 +219,7 @@ class WaterWave extends Component<WaterWaveProps> {
         ref={(n) => (this.root = n)}
         style={{ transform: `scale(${radio})` }}
       >
-        <div style={{ width: height, height, overflow: 'hidden' }}>
+        <div style={{ width: height, height, overflow: "hidden" }}>
           <canvas
             className={styles.waterWaveCanvasWrapper}
             ref={(n) => (this.node = n)}

@@ -1,13 +1,18 @@
-import React, { FC, useEffect } from 'react';
-import { Button, Card, Col, Form, List, Row, Select, Tag } from 'antd';
-import { LoadingOutlined, StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons';
-import { connect, Dispatch } from 'umi';
-import ArticleListContent from './components/ArticleListContent';
-import { StateType } from './model';
-import { ListItemDataType } from './data.d';
-import StandardFormRow from './components/StandardFormRow';
-import TagSelect from './components/TagSelect';
-import styles from './style.less';
+import React, { FC, useEffect } from "react";
+import { Button, Card, Col, Form, List, Row, Select, Tag } from "antd";
+import {
+  LoadingOutlined,
+  StarOutlined,
+  LikeOutlined,
+  MessageOutlined,
+} from "@ant-design/icons";
+import { connect, Dispatch } from "umi";
+import ArticleListContent from "./components/ArticleListContent";
+import { StateType } from "./model";
+import { ListItemDataType } from "./data.d";
+import StandardFormRow from "./components/StandardFormRow";
+import TagSelect from "./components/TagSelect";
+import styles from "./style.less";
 
 const { Option } = Select;
 const FormItem = Form.Item;
@@ -15,29 +20,33 @@ const FormItem = Form.Item;
 const pageSize = 5;
 
 interface ArticlesProps {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   listAndsearchAndarticles: StateType;
   loading: boolean;
 }
-const Articles: FC<ArticlesProps> = ({ dispatch, listAndsearchAndarticles: { list }, loading }) => {
+const Articles: FC<ArticlesProps> = ({
+  dispatch,
+  listAndsearchAndarticles: { list },
+  loading,
+}) => {
   const [form] = Form.useForm();
   useEffect(() => {
     dispatch({
-      type: 'listAndsearchAndarticles/fetch',
+      type: "listAndsearchAndarticles/fetch",
       payload: {
         count: 5,
       },
     });
-  }, []);
+  }, [dispatch]);
   const setOwner = () => {
     form.setFieldsValue({
-      owner: ['wzj'],
+      owner: ["wzj"],
     });
   };
 
   const fetchMore = () => {
     dispatch({
-      type: 'listAndsearchAndarticles/appendFetch',
+      type: "listAndsearchAndarticles/appendFetch",
       payload: {
         count: pageSize,
       },
@@ -46,24 +55,24 @@ const Articles: FC<ArticlesProps> = ({ dispatch, listAndsearchAndarticles: { lis
 
   const owners = [
     {
-      id: 'wzj',
-      name: '我自己',
+      id: "wzj",
+      name: "我自己",
     },
     {
-      id: 'wjh',
-      name: '吴家豪',
+      id: "wjh",
+      name: "吴家豪",
     },
     {
-      id: 'zxx',
-      name: '周星星',
+      id: "zxx",
+      name: "周星星",
     },
     {
-      id: 'zly',
-      name: '赵丽颖',
+      id: "zly",
+      name: "赵丽颖",
     },
     {
-      id: 'ym',
-      name: '姚明',
+      id: "ym",
+      name: "姚明",
     },
   ];
 
@@ -72,21 +81,21 @@ const Articles: FC<ArticlesProps> = ({ dispatch, listAndsearchAndarticles: { lis
     text: React.ReactNode;
   }> = ({ type, text }) => {
     switch (type) {
-      case 'star-o':
+      case "star-o":
         return (
           <span>
             <StarOutlined style={{ marginRight: 8 }} />
             {text}
           </span>
         );
-      case 'like-o':
+      case "like-o":
         return (
           <span>
             <LikeOutlined style={{ marginRight: 8 }} />
             {text}
           </span>
         );
-      case 'message':
+      case "message":
         return (
           <span>
             <MessageOutlined style={{ marginRight: 8 }} />
@@ -107,14 +116,14 @@ const Articles: FC<ArticlesProps> = ({ dispatch, listAndsearchAndarticles: { lis
   };
 
   const loadMore = list.length > 0 && (
-    <div style={{ textAlign: 'center', marginTop: 16 }}>
+    <div style={{ textAlign: "center", marginTop: 16 }}>
       <Button onClick={fetchMore} style={{ paddingLeft: 48, paddingRight: 48 }}>
         {loading ? (
           <span>
             <LoadingOutlined /> 加载中...
           </span>
         ) : (
-          '加载更多'
+          "加载更多"
         )}
       </Button>
     </div>
@@ -127,11 +136,11 @@ const Articles: FC<ArticlesProps> = ({ dispatch, listAndsearchAndarticles: { lis
           layout="inline"
           form={form}
           initialValues={{
-            owner: ['wjh', 'zxx'],
+            owner: ["wjh", "zxx"],
           }}
           onValuesChange={() => {
             dispatch({
-              type: 'listAndsearchAndarticles/fetch',
+              type: "listAndsearchAndarticles/fetch",
               payload: {
                 count: 8,
               },
@@ -174,14 +183,20 @@ const Articles: FC<ArticlesProps> = ({ dispatch, listAndsearchAndarticles: { lis
             <Row gutter={16}>
               <Col xl={8} lg={10} md={12} sm={24} xs={24}>
                 <FormItem {...formItemLayout} label="活跃用户" name="user">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: "100%" }}
+                  >
                     <Option value="lisa">李三</Option>
                   </Select>
                 </FormItem>
               </Col>
               <Col xl={8} lg={10} md={12} sm={24} xs={24}>
                 <FormItem {...formItemLayout} label="好评度" name="rate">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: "100%" }}
+                  >
                     <Option value="good">优秀</Option>
                   </Select>
                 </FormItem>
@@ -193,7 +208,7 @@ const Articles: FC<ArticlesProps> = ({ dispatch, listAndsearchAndarticles: { lis
       <Card
         style={{ marginTop: 24 }}
         bordered={false}
-        bodyStyle={{ padding: '8px 32px 32px 32px' }}
+        bodyStyle={{ padding: "8px 32px 32px 32px" }}
       >
         <List<ListItemDataType>
           size="large"
@@ -245,5 +260,5 @@ export default connect(
   }) => ({
     listAndsearchAndarticles,
     loading: loading.models.listAndsearchAndarticles,
-  }),
+  })
 )(Articles);

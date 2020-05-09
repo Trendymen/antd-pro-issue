@@ -1,20 +1,20 @@
-import { Card, Col, Form, List, Row, Select, Typography } from 'antd';
-import React, { FC, useEffect } from 'react';
-import { connect, Dispatch } from 'umi';
-import moment from 'moment';
-import AvatarList from './components/AvatarList';
-import { StateType } from './model';
-import { ListItemDataType } from './data.d';
-import StandardFormRow from './components/StandardFormRow';
-import TagSelect from './components/TagSelect';
-import styles from './style.less';
+import { Card, Col, Form, List, Row, Select, Typography } from "antd";
+import React, { FC, useEffect } from "react";
+import { connect, Dispatch } from "umi";
+import moment from "moment";
+import AvatarList from "./components/AvatarList";
+import { StateType } from "./model";
+import { ListItemDataType } from "./data.d";
+import StandardFormRow from "./components/StandardFormRow";
+import TagSelect from "./components/TagSelect";
+import styles from "./style.less";
 
 const { Option } = Select;
 const FormItem = Form.Item;
 const { Paragraph } = Typography;
 
 interface ProjectsProps {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   listAndsearchAndprojects: StateType;
   loading: boolean;
 }
@@ -28,12 +28,12 @@ const Projects: FC<ProjectsProps> = ({
 }) => {
   useEffect(() => {
     dispatch({
-      type: 'listAndsearchAndprojects/fetch',
+      type: "listAndsearchAndprojects/fetch",
       payload: {
         count: 8,
       },
     });
-  }, []);
+  }, [dispatch]);
   const cardList = list && (
     <List<ListItemDataType>
       rowKey="id"
@@ -42,7 +42,11 @@ const Projects: FC<ProjectsProps> = ({
       dataSource={list}
       renderItem={(item) => (
         <List.Item>
-          <Card className={styles.card} hoverable cover={<img alt={item.title} src={item.cover} />}>
+          <Card
+            className={styles.card}
+            hoverable
+            cover={<img alt={item.title} src={item.cover} />}
+          >
             <Card.Meta
               title={<a>{item.title}</a>}
               description={
@@ -87,7 +91,7 @@ const Projects: FC<ProjectsProps> = ({
             // 表单项变化时请求数据
             // 模拟查询表单生效
             dispatch({
-              type: 'listAndsearchAndprojects/fetch',
+              type: "listAndsearchAndprojects/fetch",
               payload: {
                 count: 8,
               },
@@ -116,14 +120,20 @@ const Projects: FC<ProjectsProps> = ({
             <Row gutter={16}>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="作者" name="author">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: "100%" }}
+                  >
                     <Option value="lisa">王昭君</Option>
                   </Select>
                 </FormItem>
               </Col>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="好评度" name="rate">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: "100%" }}
+                  >
                     <Option value="good">优秀</Option>
                     <Option value="normal">普通</Option>
                   </Select>
@@ -148,5 +158,5 @@ export default connect(
   }) => ({
     listAndsearchAndprojects,
     loading: loading.models.listAndsearchAndprojects,
-  }),
+  })
 )(Projects);

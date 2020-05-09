@@ -1,9 +1,9 @@
-import { Axis, Chart, Coord, Geom, Tooltip } from 'bizcharts';
-import { Col, Row } from 'antd';
-import React, { Component } from 'react';
+import { Axis, Chart, Coord, Geom, Tooltip } from "bizcharts";
+import { Col, Row } from "antd";
+import React, { Component } from "react";
 
-import autoHeight from './autoHeight';
-import styles from './index.less';
+import autoHeight from "./autoHeight";
+import styles from "./index.less";
 
 export interface RadarProps {
   title?: React.ReactNode;
@@ -60,7 +60,7 @@ class Radar extends Component<RadarProps, RadarState> {
     if (!this.chart) return;
     const geom = this.chart.getAllGeoms()[0]; // 获取所有的图形
     if (!geom) return;
-    const items = (geom as any).get('dataArray') || []; // 获取图形对应的
+    const items = (geom as any).get("dataArray") || []; // 获取图形对应的
 
     const legendData = items.map((item: { color: any; _origin: any }[]) => {
       // eslint-disable-next-line no-underscore-dangle
@@ -89,7 +89,7 @@ class Radar extends Component<RadarProps, RadarState> {
       checked: boolean;
       name: string;
     },
-    i: string | number,
+    i: string | number
   ) => {
     const newItem = item;
     newItem.checked = !newItem.checked;
@@ -97,10 +97,15 @@ class Radar extends Component<RadarProps, RadarState> {
     const { legendData } = this.state;
     legendData[i] = newItem;
 
-    const filteredLegendData = legendData.filter((l) => l.checked).map((l) => l.name);
+    const filteredLegendData = legendData
+      .filter((l) => l.checked)
+      .map((l) => l.name);
 
     if (this.chart) {
-      this.chart.filter('name', (val) => filteredLegendData.indexOf(`${val}`) > -1);
+      this.chart.filter(
+        "name",
+        (val) => filteredLegendData.indexOf(`${val}`) > -1
+      );
       this.chart.repaint();
     }
 
@@ -111,14 +116,14 @@ class Radar extends Component<RadarProps, RadarState> {
 
   render() {
     const defaultColors = [
-      '#1890FF',
-      '#FACC14',
-      '#2FC25B',
-      '#8543E0',
-      '#F04864',
-      '#13C2C2',
-      '#fa8c16',
-      '#a0d911',
+      "#1890FF",
+      "#FACC14",
+      "#2FC25B",
+      "#8543E0",
+      "#F04864",
+      "#13C2C2",
+      "#fa8c16",
+      "#a0d911",
     ];
 
     const {
@@ -172,17 +177,22 @@ class Radar extends Component<RadarProps, RadarState> {
           <Axis
             name="value"
             grid={{
-              type: 'polygon',
+              type: "polygon",
               lineStyle: {
                 lineDash: undefined,
               },
             }}
           />
-          <Geom type="line" position="label*value" color={['name', colors]} size={1} />
+          <Geom
+            type="line"
+            position="label*value"
+            color={["name", colors]}
+            size={1}
+          />
           <Geom
             type="point"
             position="label*value"
-            color={['name', colors]}
+            color={["name", colors]}
             shape="circle"
             size={3}
           />
@@ -200,7 +210,7 @@ class Radar extends Component<RadarProps, RadarState> {
                     <span
                       className={styles.dot}
                       style={{
-                        backgroundColor: !item.checked ? '#aaa' : item.color,
+                        backgroundColor: !item.checked ? "#aaa" : item.color,
                       }}
                     />
                     <span>{item.name}</span>

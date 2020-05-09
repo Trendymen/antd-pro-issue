@@ -1,13 +1,13 @@
-import { Card, Col, DatePicker, Row, Tabs } from 'antd';
-import { FormattedMessage, formatMessage } from 'umi';
-import { RangePickerProps } from 'antd/es/date-picker/generatePicker';
-import moment from 'moment';
+import { Card, Col, DatePicker, Row, Tabs } from "antd";
+import { FormattedMessage, formatMessage } from "umi";
+import { RangePickerProps } from "antd/es/date-picker/generatePicker";
+import moment from "moment";
 
-import React from 'react';
-import numeral from 'numeral';
-import { VisitDataType } from '../data.d';
-import { Bar } from './Charts';
-import styles from '../style.less';
+import React from "react";
+import numeral from "numeral";
+import { VisitDataType } from "../data.d";
+import { Bar } from "./Charts";
+import styles from "../style.less";
 
 const { RangePicker } = DatePicker;
 const { TabPane } = Tabs;
@@ -15,12 +15,15 @@ const { TabPane } = Tabs;
 const rankingListData: { title: string; total: number }[] = [];
 for (let i = 0; i < 7; i += 1) {
   rankingListData.push({
-    title: formatMessage({ id: 'dashboardandanalysis.analysis.test' }, { no: i }),
+    title: formatMessage(
+      { id: "dashboardandanalysis.analysis.test" },
+      { no: i }
+    ),
     total: 323234,
   });
 }
 
-type RangePickerValue = RangePickerProps<moment.Moment>['value'];
+type RangePickerValue = RangePickerProps<moment.Moment>["value"];
 
 const SalesCard = ({
   rangePickerValue,
@@ -31,11 +34,14 @@ const SalesCard = ({
   selectDate,
 }: {
   rangePickerValue: RangePickerValue;
-  isActive: (key: 'today' | 'week' | 'month' | 'year') => string;
+  isActive: (key: "today" | "week" | "month" | "year") => string;
   salesData: VisitDataType[];
   loading: boolean;
-  handleRangePickerChange: (dates: RangePickerValue, dateStrings: [string, string]) => void;
-  selectDate: (key: 'today' | 'week' | 'month' | 'year') => void;
+  handleRangePickerChange: (
+    dates: RangePickerValue,
+    dateStrings: [string, string]
+  ) => void;
+  selectDate: (key: "today" | "week" | "month" | "year") => void;
 }) => (
   <Card loading={loading} bordered={false} bodyStyle={{ padding: 0 }}>
     <div className={styles.salesCard}>
@@ -43,25 +49,37 @@ const SalesCard = ({
         tabBarExtraContent={
           <div className={styles.salesExtraWrap}>
             <div className={styles.salesExtra}>
-              <a className={isActive('today')} onClick={() => selectDate('today')}>
+              <a
+                className={isActive("today")}
+                onClick={() => selectDate("today")}
+              >
                 <FormattedMessage
                   id="dashboardandanalysis.analysis.all-day"
                   defaultMessage="All Day"
                 />
               </a>
-              <a className={isActive('week')} onClick={() => selectDate('week')}>
+              <a
+                className={isActive("week")}
+                onClick={() => selectDate("week")}
+              >
                 <FormattedMessage
                   id="dashboardandanalysis.analysis.all-week"
                   defaultMessage="All Week"
                 />
               </a>
-              <a className={isActive('month')} onClick={() => selectDate('month')}>
+              <a
+                className={isActive("month")}
+                onClick={() => selectDate("month")}
+              >
                 <FormattedMessage
                   id="dashboardandanalysis.analysis.all-month"
                   defaultMessage="All Month"
                 />
               </a>
-              <a className={isActive('year')} onClick={() => selectDate('year')}>
+              <a
+                className={isActive("year")}
+                onClick={() => selectDate("year")}
+              >
                 <FormattedMessage
                   id="dashboardandanalysis.analysis.all-year"
                   defaultMessage="All Year"
@@ -79,7 +97,12 @@ const SalesCard = ({
         tabBarStyle={{ marginBottom: 24 }}
       >
         <TabPane
-          tab={<FormattedMessage id="dashboardandanalysis.analysis.sales" defaultMessage="Sales" />}
+          tab={
+            <FormattedMessage
+              id="dashboardandanalysis.analysis.sales"
+              defaultMessage="Sales"
+            />
+          }
           key="sales"
         >
           <Row>
@@ -108,14 +131,21 @@ const SalesCard = ({
                 <ul className={styles.rankingList}>
                   {rankingListData.map((item, i) => (
                     <li key={item.title}>
-                      <span className={`${styles.rankingItemNumber} ${i < 3 ? styles.active : ''}`}>
+                      <span
+                        className={`${styles.rankingItemNumber} ${
+                          i < 3 ? styles.active : ""
+                        }`}
+                      >
                         {i + 1}
                       </span>
-                      <span className={styles.rankingItemTitle} title={item.title}>
+                      <span
+                        className={styles.rankingItemTitle}
+                        title={item.title}
+                      >
                         {item.title}
                       </span>
                       <span className={styles.rankingItemValue}>
-                        {numeral(item.total).format('0,0')}
+                        {numeral(item.total).format("0,0")}
                       </span>
                     </li>
                   ))}
@@ -126,7 +156,10 @@ const SalesCard = ({
         </TabPane>
         <TabPane
           tab={
-            <FormattedMessage id="dashboardandanalysis.analysis.visits" defaultMessage="Visits" />
+            <FormattedMessage
+              id="dashboardandanalysis.analysis.visits"
+              defaultMessage="Visits"
+            />
           }
           key="views"
         >
@@ -156,13 +189,20 @@ const SalesCard = ({
                 <ul className={styles.rankingList}>
                   {rankingListData.map((item, i) => (
                     <li key={item.title}>
-                      <span className={`${styles.rankingItemNumber} ${i < 3 ? styles.active : ''}`}>
+                      <span
+                        className={`${styles.rankingItemNumber} ${
+                          i < 3 ? styles.active : ""
+                        }`}
+                      >
                         {i + 1}
                       </span>
-                      <span className={styles.rankingItemTitle} title={item.title}>
+                      <span
+                        className={styles.rankingItemTitle}
+                        title={item.title}
+                      >
                         {item.title}
                       </span>
-                      <span>{numeral(item.total).format('0,0')}</span>
+                      <span>{numeral(item.total).format("0,0")}</span>
                     </li>
                   ))}
                 </ul>

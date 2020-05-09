@@ -1,11 +1,15 @@
-import { AlipayCircleOutlined, TaobaoCircleOutlined, WeiboCircleOutlined } from '@ant-design/icons';
-import { Alert, Checkbox } from 'antd';
-import React, { useState } from 'react';
-import { Dispatch, AnyAction, Link, connect } from 'umi';
-import { StateType } from './model';
-import styles from './style.less';
-import { LoginParamsType } from './service';
-import LoginFrom from './components/Login';
+import {
+  AlipayCircleOutlined,
+  TaobaoCircleOutlined,
+  WeiboCircleOutlined,
+} from "@ant-design/icons";
+import { Alert, Checkbox } from "antd";
+import React, { useState } from "react";
+import { Dispatch, AnyAction, Link, connect } from "umi";
+import { StateType } from "./model";
+import styles from "./style.less";
+import { LoginParamsType } from "./service";
+import LoginFrom from "./components/Login";
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginFrom;
 interface LoginProps {
@@ -31,12 +35,12 @@ const Login: React.FC<LoginProps> = (props) => {
   const { userAndlogin = {}, submitting } = props;
   const { status, type: loginType } = userAndlogin;
   const [autoLogin, setAutoLogin] = useState(true);
-  const [type, setType] = useState<string>('account');
+  const [type, setType] = useState<string>("account");
 
   const handleSubmit = (values: LoginParamsType) => {
     const { dispatch } = props;
     dispatch({
-      type: 'userAndlogin/login',
+      type: "userAndlogin/login",
       payload: {
         ...values,
         type,
@@ -47,7 +51,7 @@ const Login: React.FC<LoginProps> = (props) => {
     <div className={styles.main}>
       <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
         <Tab key="account" tab="账户密码登录">
-          {status === 'error' && loginType === 'account' && !submitting && (
+          {status === "error" && loginType === "account" && !submitting && (
             <LoginMessage content="账户或密码错误（admin/ant.design）" />
           )}
 
@@ -57,7 +61,7 @@ const Login: React.FC<LoginProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: '请输入用户名!',
+                message: "请输入用户名!",
               },
             ]}
           />
@@ -67,13 +71,13 @@ const Login: React.FC<LoginProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: '请输入密码！',
+                message: "请输入密码！",
               },
             ]}
           />
         </Tab>
         <Tab key="mobile" tab="手机号登录">
-          {status === 'error' && loginType === 'mobile' && !submitting && (
+          {status === "error" && loginType === "mobile" && !submitting && (
             <LoginMessage content="验证码错误" />
           )}
           <Mobile
@@ -82,11 +86,11 @@ const Login: React.FC<LoginProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: '请输入手机号！',
+                message: "请输入手机号！",
               },
               {
                 pattern: /^1\d{10}$/,
-                message: '手机号格式错误！',
+                message: "手机号格式错误！",
               },
             ]}
           />
@@ -99,18 +103,21 @@ const Login: React.FC<LoginProps> = (props) => {
             rules={[
               {
                 required: true,
-                message: '请输入验证码！',
+                message: "请输入验证码！",
               },
             ]}
           />
         </Tab>
         <div>
-          <Checkbox checked={autoLogin} onChange={(e) => setAutoLogin(e.target.checked)}>
+          <Checkbox
+            checked={autoLogin}
+            onChange={(e) => setAutoLogin(e.target.checked)}
+          >
             自动登录
           </Checkbox>
           <a
             style={{
-              float: 'right',
+              float: "right",
             }}
           >
             忘记密码
@@ -144,6 +151,6 @@ export default connect(
     };
   }) => ({
     userAndlogin,
-    submitting: loading.effects['userAndlogin/login'],
-  }),
+    submitting: loading.effects["userAndlogin/login"],
+  })
 )(Login);

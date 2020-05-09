@@ -1,23 +1,23 @@
-import { Col, Row } from 'antd';
-import GGEditor, { Koni } from 'gg-editor';
+import { Col, Row } from "antd";
+import GGEditor, { Koni } from "gg-editor";
 
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import React from 'react';
-import { formatMessage } from 'umi';
-import EditorMinimap from './components/EditorMinimap';
-import { KoniContextMenu } from './components/EditorContextMenu';
-import { KoniDetailPanel } from './components/EditorDetailPanel';
-import { KoniItemPanel } from './components/EditorItemPanel';
-import { KoniToolbar } from './components/EditorToolbar';
-import styles from './index.less';
+import { PageHeaderWrapper } from "@ant-design/pro-layout";
+import React from "react";
+import { formatMessage } from "umi";
+import EditorMinimap from "./components/EditorMinimap";
+import { KoniContextMenu } from "./components/EditorContextMenu";
+import { KoniDetailPanel } from "./components/EditorDetailPanel";
+import { KoniItemPanel } from "./components/EditorItemPanel";
+import { KoniToolbar } from "./components/EditorToolbar";
+import styles from "./index.less";
 
 GGEditor.setTrackable(false);
 
 export default () => (
   <PageHeaderWrapper
     content={formatMessage({
-      id: 'editorandkoni.description',
-      defaultMessage: 'description',
+      id: "editorandkoni.description",
+      defaultMessage: "description",
     })}
   >
     <GGEditor className={styles.editor}>

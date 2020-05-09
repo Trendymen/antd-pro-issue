@@ -1,6 +1,11 @@
-import { Effect, Reducer } from 'umi';
-import { CurrentUser, GeographicItemType } from './data.d';
-import { queryCity, queryCurrent, queryProvince, query as queryUsers } from './service';
+import { Effect, Reducer } from "umi";
+import { CurrentUser, GeographicItemType } from "./data.d";
+import {
+  queryCity,
+  queryCurrent,
+  queryProvince,
+  query as queryUsers,
+} from "./service";
 
 export interface ModalState {
   currentUser?: Partial<CurrentUser>;
@@ -28,7 +33,7 @@ export interface ModelType {
 }
 
 const Model: ModelType = {
-  namespace: 'accountAndsettings',
+  namespace: "accountAndsettings",
 
   state: {
     currentUser: {},
@@ -41,32 +46,32 @@ const Model: ModelType = {
     *fetch(_, { call, put }) {
       const response = yield call(queryUsers);
       yield put({
-        type: 'save',
+        type: "save",
         payload: response,
       });
     },
     *fetchCurrent(_, { call, put }) {
       const response = yield call(queryCurrent);
       yield put({
-        type: 'saveCurrentUser',
+        type: "saveCurrentUser",
         payload: response,
       });
     },
     *fetchProvince(_, { call, put }) {
       yield put({
-        type: 'changeLoading',
+        type: "changeLoading",
         payload: true,
       });
       const response = yield call(queryProvince);
       yield put({
-        type: 'setProvince',
+        type: "setProvince",
         payload: response,
       });
     },
     *fetchCity({ payload }, { call, put }) {
       const response = yield call(queryCity, payload);
       yield put({
-        type: 'setCity',
+        type: "setCity",
         payload: response,
       });
     },

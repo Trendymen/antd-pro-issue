@@ -1,11 +1,11 @@
-import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
-import React from 'react';
-import classNames from 'classnames';
-import styles from './index.less';
+import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
+import React from "react";
+import classNames from "classnames";
+import styles from "./index.less";
 
 export interface TrendProps {
   colorful?: boolean;
-  flag: 'up' | 'down';
+  flag: "up" | "down";
   style?: React.CSSProperties;
   reverseColor?: boolean;
   className?: string;
@@ -25,14 +25,18 @@ const Trend: React.FC<TrendProps> = ({
       [styles.trendItemGrey]: !colorful,
       [styles.reverseColor]: reverseColor && colorful,
     },
-    className,
+    className
   );
   return (
-    <div {...rest} className={classString} title={typeof children === 'string' ? children : ''}>
+    <div
+      {...rest}
+      className={classString}
+      title={typeof children === "string" ? children : ""}
+    >
       <span>{children}</span>
       {flag && (
         <span className={styles[flag]}>
-          {flag === 'up' ? <CaretUpOutlined /> : <CaretDownOutlined />}
+          {flag === "up" ? <CaretUpOutlined /> : <CaretDownOutlined />}
         </span>
       )}
     </div>

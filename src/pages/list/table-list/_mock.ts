@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Request, Response } from 'express';
-import { parse } from 'url';
-import { TableListItem, TableListParams } from './data.d';
+import { Request, Response } from "express";
+import { parse } from "url";
+import { TableListItem, TableListParams } from "./data.d";
 
 // mock tableListDataSource
 let tableListDataSource: TableListItem[] = [];
@@ -10,15 +10,15 @@ for (let i = 0; i < 10; i += 1) {
   tableListDataSource.push({
     key: i,
     disabled: i % 6 === 0,
-    href: 'https://ant.design',
+    href: "https://ant.design",
     avatar: [
-      'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png',
-      'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png',
+      "https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png",
+      "https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png",
     ][i % 2],
     name: `TradeCode ${i}`,
     title: `一个任务名称 ${i}`,
-    owner: '曲丽丽',
-    desc: '这是一段描述',
+    owner: "曲丽丽",
+    desc: "这是一段描述",
     callNo: Math.floor(Math.random() * 1000),
     status: Math.floor(Math.random() * 10) % 4,
     updatedAt: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
@@ -29,7 +29,7 @@ for (let i = 0; i < 10; i += 1) {
 
 function getRule(req: Request, res: Response, u: string) {
   let url = u;
-  if (!url || Object.prototype.toString.call(url) !== '[object String]') {
+  if (!url || Object.prototype.toString.call(url) !== "[object String]") {
     // eslint-disable-next-line prefer-destructuring
     url = req.url;
   }
@@ -39,9 +39,9 @@ function getRule(req: Request, res: Response, u: string) {
   let dataSource = tableListDataSource;
 
   if (params.sorter) {
-    const s = params.sorter.split('_');
+    const s = params.sorter.split("_");
     dataSource = dataSource.sort((prev, next) => {
-      if (s[1] === 'descend') {
+      if (s[1] === "descend") {
         return next[s[0]] - prev[s[0]];
       }
       return prev[s[0]] - next[s[0]];
@@ -49,23 +49,25 @@ function getRule(req: Request, res: Response, u: string) {
   }
 
   if (params.status) {
-    const status = params.status.split(',');
+    const status = params.status.split(",");
     let filterDataSource: TableListItem[] = [];
     status.forEach((s: string) => {
       filterDataSource = filterDataSource.concat(
         dataSource.filter((item) => {
-          if (parseInt(`${item.status}`, 10) === parseInt(s.split('')[0], 10)) {
+          if (parseInt(`${item.status}`, 10) === parseInt(s.split("")[0], 10)) {
             return true;
           }
           return false;
-        }),
+        })
       );
     });
     dataSource = filterDataSource;
   }
 
   if (params.name) {
-    dataSource = dataSource.filter((data) => data.name.includes(params.name || ''));
+    dataSource = dataSource.filter((data) =>
+      data.name.includes(params.name || "")
+    );
   }
 
   let pageSize = 10;
@@ -86,7 +88,7 @@ function getRule(req: Request, res: Response, u: string) {
 
 function postRule(req: Request, res: Response, u: string, b: Request) {
   let url = u;
-  if (!url || Object.prototype.toString.call(url) !== '[object String]') {
+  if (!url || Object.prototype.toString.call(url) !== "[object String]") {
     // eslint-disable-next-line prefer-destructuring
     url = req.url;
   }
@@ -96,21 +98,23 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
 
   switch (method) {
     /* eslint no-case-declarations:0 */
-    case 'delete':
-      tableListDataSource = tableListDataSource.filter((item) => key.indexOf(item.key) === -1);
+    case "delete":
+      tableListDataSource = tableListDataSource.filter(
+        (item) => key.indexOf(item.key) === -1
+      );
       break;
-    case 'post':
+    case "post":
       const i = Math.ceil(Math.random() * 10000);
       tableListDataSource.unshift({
         key: i,
-        href: 'https://ant.design',
+        href: "https://ant.design",
         avatar: [
-          'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png',
-          'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png',
+          "https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png",
+          "https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png",
         ][i % 2],
         name: `TradeCode ${i}`,
         title: `一个任务名称 ${i}`,
-        owner: '曲丽丽',
+        owner: "曲丽丽",
         desc,
         callNo: Math.floor(Math.random() * 1000),
         status: Math.floor(Math.random() * 10) % 2,
@@ -119,7 +123,7 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
         progress: Math.ceil(Math.random() * 100),
       });
       break;
-    case 'update':
+    case "update":
       tableListDataSource = tableListDataSource.map((item) => {
         if (item.key === key) {
           return { ...item, desc, name };
@@ -142,6 +146,6 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
 }
 
 export default {
-  'GET /api/rule': getRule,
-  'POST /api/rule': postRule,
+  "GET /api/rule": getRule,
+  "POST /api/rule": postRule,
 };

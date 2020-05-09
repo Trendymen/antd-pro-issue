@@ -1,6 +1,6 @@
-import { Effect, Reducer } from 'umi';
-import { AdvancedProfileData } from './data.d';
-import { queryAdvancedProfile } from './service';
+import { Effect, Reducer } from "umi";
+import { AdvancedProfileData } from "./data.d";
+import { queryAdvancedProfile } from "./service";
 
 export interface ModelType {
   namespace: string;
@@ -14,7 +14,7 @@ export interface ModelType {
 }
 
 const Model: ModelType = {
-  namespace: 'profileAndadvanced',
+  namespace: "profileAndadvanced",
 
   state: {
     advancedOperation1: [],
@@ -26,7 +26,7 @@ const Model: ModelType = {
     *fetchAdvanced(_, { call, put }) {
       const response = yield call(queryAdvancedProfile);
       yield put({
-        type: 'show',
+        type: "show",
         payload: response,
       });
     },

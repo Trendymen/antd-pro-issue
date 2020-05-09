@@ -1,11 +1,11 @@
-import request from 'umi-request';
+import request from "umi-request";
 
 export async function queryCurrent() {
-  return request('/api/currentUser');
+  return request("/api/currentUser");
 }
 
 export async function queryProvince() {
-  return request('/api/geographic/province');
+  return request("/api/geographic/province");
 }
 
 export async function queryCity(province: string) {
@@ -13,5 +13,5 @@ export async function queryCity(province: string) {
 }
 
 export async function query() {
-  return request('/api/users');
+  return request("/api/users");
 }

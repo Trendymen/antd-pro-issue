@@ -1,9 +1,26 @@
-import { Form, Button, Col, Input, Popover, Progress, Row, Select, message } from 'antd';
-import React, { FC, useState, useEffect } from 'react';
-import { Link, connect, history, FormattedMessage, formatMessage, Dispatch } from 'umi';
+import {
+  Form,
+  Button,
+  Col,
+  Input,
+  Popover,
+  Progress,
+  Row,
+  Select,
+  message,
+} from "antd";
+import React, { FC, useState, useEffect } from "react";
+import {
+  Link,
+  connect,
+  history,
+  FormattedMessage,
+  formatMessage,
+  Dispatch,
+} from "umi";
 
-import { StateType } from './model';
-import styles from './style.less';
+import { StateType } from "./model";
+import styles from "./style.less";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -28,13 +45,13 @@ const passwordStatusMap = {
 };
 
 const passwordProgressMap: {
-  ok: 'success';
-  pass: 'normal';
-  poor: 'exception';
+  ok: "success";
+  pass: "normal";
+  poor: "exception";
 } = {
-  ok: 'success',
-  pass: 'normal',
-  poor: 'exception',
+  ok: "success",
+  pass: "normal",
+  poor: "exception",
 };
 
 interface RegisterProps {
@@ -52,10 +69,14 @@ export interface UserRegisterParams {
   prefix: string;
 }
 
-const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) => {
+const Register: FC<RegisterProps> = ({
+  submitting,
+  dispatch,
+  userAndregister,
+}) => {
   const [count, setcount]: [number, any] = useState(0);
   const [visible, setvisible]: [boolean, any] = useState(false);
-  const [prefix, setprefix]: [string, any] = useState('86');
+  const [prefix, setprefix]: [string, any] = useState("86");
   const [popover, setpopover]: [boolean, any] = useState(false);
   const confirmDirty = false;
   let interval: number | undefined;
@@ -64,22 +85,22 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
     if (!userAndregister) {
       return;
     }
-    const account = form.getFieldValue('mail');
-    if (userAndregister.status === 'ok') {
-      message.success('注册成功！');
+    const account = form.getFieldValue("mail");
+    if (userAndregister.status === "ok") {
+      message.success("注册成功！");
       history.push({
-        pathname: '/user/register-result',
+        pathname: "/user/register-result",
         state: {
           account,
         },
       });
     }
-  }, [userAndregister]);
+  }, [form, userAndregister]);
   useEffect(
     () => () => {
       clearInterval(interval);
     },
-    [],
+    [interval]
   );
   const onGetCaptcha = () => {
     let counts = 59;
@@ -93,18 +114,18 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
     }, 1000);
   };
   const getPasswordStatus = () => {
-    const value = form.getFieldValue('password');
+    const value = form.getFieldValue("password");
     if (value && value.length > 9) {
-      return 'ok';
+      return "ok";
     }
     if (value && value.length > 5) {
-      return 'pass';
+      return "pass";
     }
-    return 'poor';
+    return "poor";
   };
   const onFinish = (values: { [key: string]: any }) => {
     dispatch({
-      type: 'userAndregister/submit',
+      type: "userAndregister/submit",
       payload: {
         ...values,
         prefix,
@@ -113,8 +134,10 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
   };
   const checkConfirm = (_: any, value: string) => {
     const promise = Promise;
-    if (value && value !== form.getFieldValue('password')) {
-      return promise.reject(formatMessage({ id: 'userandregister.password.twice' }));
+    if (value && value !== form.getFieldValue("password")) {
+      return promise.reject(
+        formatMessage({ id: "userandregister.password.twice" })
+      );
     }
     return promise.resolve();
   };
@@ -123,7 +146,9 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
     // 没有值的情况
     if (!value) {
       setvisible(!!value);
-      return promise.reject(formatMessage({ id: 'userandregister.password.required' }));
+      return promise.reject(
+        formatMessage({ id: "userandregister.password.required" })
+      );
     }
     // 有值的情况
     if (!visible) {
@@ -131,10 +156,10 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
     }
     setpopover(!popover);
     if (value.length < 6) {
-      return promise.reject('');
+      return promise.reject("");
     }
     if (value && confirmDirty) {
-      form.validateFields(['confirm']);
+      form.validateFields(["confirm"]);
     }
     return promise.resolve();
   };
@@ -142,7 +167,7 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
     setprefix(value);
   };
   const renderPasswordProgress = () => {
-    const value = form.getFieldValue('password');
+    const value = form.getFieldValue("password");
     const passwordStatus = getPasswordStatus();
     return value && value.length ? (
       <div className={styles[`progress-${passwordStatus}`]}>
@@ -168,17 +193,21 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
           rules={[
             {
               required: true,
-              message: formatMessage({ id: 'userandregister.email.required' }),
+              message: formatMessage({ id: "userandregister.email.required" }),
             },
             {
-              type: 'email',
-              message: formatMessage({ id: 'userandregister.email.wrong-format' }),
+              type: "email",
+              message: formatMessage({
+                id: "userandregister.email.wrong-format",
+              }),
             },
           ]}
         >
           <Input
             size="large"
-            placeholder={formatMessage({ id: 'userandregister.email.placeholder' })}
+            placeholder={formatMessage({
+              id: "userandregister.email.placeholder",
+            })}
           />
         </FormItem>
         <Popover
@@ -190,7 +219,7 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
           }}
           content={
             visible && (
-              <div style={{ padding: '4px 0' }}>
+              <div style={{ padding: "4px 0" }}>
                 {passwordStatusMap[getPasswordStatus()]}
                 {renderPasswordProgress()}
                 <div style={{ marginTop: 10 }}>
@@ -206,8 +235,8 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
           <FormItem
             name="password"
             className={
-              form.getFieldValue('password') &&
-              form.getFieldValue('password').length > 0 &&
+              form.getFieldValue("password") &&
+              form.getFieldValue("password").length > 0 &&
               styles.password
             }
             rules={[
@@ -219,7 +248,9 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
             <Input
               size="large"
               type="password"
-              placeholder={formatMessage({ id: 'userandregister.password.placeholder' })}
+              placeholder={formatMessage({
+                id: "userandregister.password.placeholder",
+              })}
             />
           </FormItem>
         </Popover>
@@ -228,7 +259,9 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
           rules={[
             {
               required: true,
-              message: formatMessage({ id: 'userandregister.confirm-password.required' }),
+              message: formatMessage({
+                id: "userandregister.confirm-password.required",
+              }),
             },
             {
               validator: checkConfirm,
@@ -238,31 +271,44 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
           <Input
             size="large"
             type="password"
-            placeholder={formatMessage({ id: 'userandregister.confirm-password.placeholder' })}
+            placeholder={formatMessage({
+              id: "userandregister.confirm-password.placeholder",
+            })}
           />
         </FormItem>
         <InputGroup compact>
-          <Select size="large" value={prefix} onChange={changePrefix} style={{ width: '20%' }}>
+          <Select
+            size="large"
+            value={prefix}
+            onChange={changePrefix}
+            style={{ width: "20%" }}
+          >
             <Option value="86">+86</Option>
             <Option value="87">+87</Option>
           </Select>
           <FormItem
-            style={{ width: '80%' }}
+            style={{ width: "80%" }}
             name="mobile"
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'userandregister.phone-number.required' }),
+                message: formatMessage({
+                  id: "userandregister.phone-number.required",
+                }),
               },
               {
                 pattern: /^\d{11}$/,
-                message: formatMessage({ id: 'userandregister.phone-number.wrong-format' }),
+                message: formatMessage({
+                  id: "userandregister.phone-number.wrong-format",
+                }),
               },
             ]}
           >
             <Input
               size="large"
-              placeholder={formatMessage({ id: 'userandregister.phone-number.placeholder' })}
+              placeholder={formatMessage({
+                id: "userandregister.phone-number.placeholder",
+              })}
             />
           </FormItem>
         </InputGroup>
@@ -273,13 +319,17 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
               rules={[
                 {
                   required: true,
-                  message: formatMessage({ id: 'userandregister.verification-code.required' }),
+                  message: formatMessage({
+                    id: "userandregister.verification-code.required",
+                  }),
                 },
               ]}
             >
               <Input
                 size="large"
-                placeholder={formatMessage({ id: 'userandregister.verification-code.placeholder' })}
+                placeholder={formatMessage({
+                  id: "userandregister.verification-code.placeholder",
+                })}
               />
             </FormItem>
           </Col>
@@ -292,7 +342,9 @@ const Register: FC<RegisterProps> = ({ submitting, dispatch, userAndregister }) 
             >
               {count
                 ? `${count} s`
-                : formatMessage({ id: 'userandregister.register.get-verification-code' })}
+                : formatMessage({
+                    id: "userandregister.register.get-verification-code",
+                  })}
             </Button>
           </Col>
         </Row>
@@ -327,6 +379,6 @@ export default connect(
     };
   }) => ({
     userAndregister,
-    submitting: loading.effects['userAndregister/submit'],
-  }),
+    submitting: loading.effects["userAndregister/submit"],
+  })
 )(Register);

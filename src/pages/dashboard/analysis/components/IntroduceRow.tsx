@@ -1,14 +1,14 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
-import { Col, Row, Tooltip } from 'antd';
+import { InfoCircleOutlined } from "@ant-design/icons";
+import { Col, Row, Tooltip } from "antd";
 
-import { FormattedMessage } from 'umi';
-import React from 'react';
-import numeral from 'numeral';
-import { ChartCard, MiniArea, MiniBar, MiniProgress, Field } from './Charts';
-import { VisitDataType } from '../data.d';
-import Trend from './Trend';
-import Yuan from '../utils/Yuan';
-import styles from '../style.less';
+import { FormattedMessage } from "umi";
+import React from "react";
+import numeral from "numeral";
+import { ChartCard, MiniArea, MiniBar, MiniProgress, Field } from "./Charts";
+import { VisitDataType } from "../data.d";
+import Trend from "./Trend";
+import Yuan from "../utils/Yuan";
+import styles from "../style.less";
 
 const topColResponsiveProps = {
   xs: 24,
@@ -19,8 +19,14 @@ const topColResponsiveProps = {
   style: { marginBottom: 24 },
 };
 
-const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: VisitDataType[] }) => (
-  <Row gutter={24} type="flex">
+const IntroduceRow = ({
+  loading,
+  visitData,
+}: {
+  loading: boolean;
+  visitData: VisitDataType[];
+}) => (
+  <Row gutter={24}>
     <Col {...topColResponsiveProps}>
       <ChartCard
         bordered={false}
@@ -52,7 +58,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
                 defaultMessage="Daily Sales"
               />
             }
-            value={`￥${numeral(12423).format('0,0')}`}
+            value={`￥${numeral(12423).format("0,0")}`}
           />
         }
         contentHeight={46}
@@ -65,7 +71,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
           <span className={styles.trendText}>12%</span>
         </Trend>
         <Trend flag="down">
-          <FormattedMessage id="dashboardandanalysis.analysis.day" defaultMessage="Daily Changes" />
+          <FormattedMessage
+            id="dashboardandanalysis.analysis.day"
+            defaultMessage="Daily Changes"
+          />
           <span className={styles.trendText}>11%</span>
         </Trend>
       </ChartCard>
@@ -76,7 +85,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         bordered={false}
         loading={loading}
         title={
-          <FormattedMessage id="dashboardandanalysis.analysis.visits" defaultMessage="Visits" />
+          <FormattedMessage
+            id="dashboardandanalysis.analysis.visits"
+            defaultMessage="Visits"
+          />
         }
         action={
           <Tooltip
@@ -90,7 +102,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
             <InfoCircleOutlined />
           </Tooltip>
         }
-        total={numeral(8846).format('0,0')}
+        total={numeral(8846).format("0,0")}
         footer={
           <Field
             label={
@@ -99,7 +111,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
                 defaultMessage="Daily Visits"
               />
             }
-            value={numeral(1234).format('0,0')}
+            value={numeral(1234).format("0,0")}
           />
         }
         contentHeight={46}
@@ -112,7 +124,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         bordered={false}
         loading={loading}
         title={
-          <FormattedMessage id="dashboardandanalysis.analysis.payments" defaultMessage="Payments" />
+          <FormattedMessage
+            id="dashboardandanalysis.analysis.payments"
+            defaultMessage="Payments"
+          />
         }
         action={
           <Tooltip
@@ -126,7 +141,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
             <InfoCircleOutlined />
           </Tooltip>
         }
-        total={numeral(6560).format('0,0')}
+        total={numeral(6560).format("0,0")}
         footer={
           <Field
             label={
@@ -167,7 +182,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         }
         total="78%"
         footer={
-          <div style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
+          <div style={{ whiteSpace: "nowrap", overflow: "hidden" }}>
             <Trend flag="up" style={{ marginRight: 16 }}>
               <FormattedMessage
                 id="dashboardandanalysis.analysis.week"
@@ -186,7 +201,12 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         }
         contentHeight={46}
       >
-        <MiniProgress percent={78} strokeWidth={8} target={80} color="#13C2C2" />
+        <MiniProgress
+          percent={78}
+          strokeWidth={8}
+          target={80}
+          color="#13C2C2"
+        />
       </ChartCard>
     </Col>
   </Row>

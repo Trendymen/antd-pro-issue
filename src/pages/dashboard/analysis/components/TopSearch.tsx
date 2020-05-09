@@ -1,20 +1,25 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
-import { Card, Col, Row, Table, Tooltip } from 'antd';
-import { FormattedMessage } from 'umi';
-import React from 'react';
-import numeral from 'numeral';
-import { SearchDataType, VisitDataType } from '../data.d';
+import { InfoCircleOutlined } from "@ant-design/icons";
+import { Card, Col, Row, Table, Tooltip } from "antd";
+import { FormattedMessage } from "umi";
+import React from "react";
+import numeral from "numeral";
+import { SearchDataType, VisitDataType } from "../data.d";
 
-import { MiniArea } from './Charts';
-import NumberInfo from './NumberInfo';
-import Trend from './Trend';
-import styles from '../style.less';
+import { MiniArea } from "./Charts";
+import NumberInfo from "./NumberInfo";
+import Trend from "./Trend";
+import styles from "../style.less";
 
 const columns = [
   {
-    title: <FormattedMessage id="dashboardandanalysis.table.rank" defaultMessage="Rank" />,
-    dataIndex: 'index',
-    key: 'index',
+    title: (
+      <FormattedMessage
+        id="dashboardandanalysis.table.rank"
+        defaultMessage="Rank"
+      />
+    ),
+    dataIndex: "index",
+    key: "index",
   },
   {
     title: (
@@ -23,14 +28,19 @@ const columns = [
         defaultMessage="Search keyword"
       />
     ),
-    dataIndex: 'keyword',
-    key: 'keyword',
+    dataIndex: "keyword",
+    key: "keyword",
     render: (text: React.ReactNode) => <a href="/">{text}</a>,
   },
   {
-    title: <FormattedMessage id="dashboardandanalysis.table.users" defaultMessage="Users" />,
-    dataIndex: 'count',
-    key: 'count',
+    title: (
+      <FormattedMessage
+        id="dashboardandanalysis.table.users"
+        defaultMessage="Users"
+      />
+    ),
+    dataIndex: "count",
+    key: "count",
     sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
     className: styles.alignRight,
   },
@@ -41,11 +51,11 @@ const columns = [
         defaultMessage="Weekly Range"
       />
     ),
-    dataIndex: 'range',
-    key: 'range',
+    dataIndex: "range",
+    key: "range",
     sorter: (a: { range: number }, b: { range: number }) => a.range - b.range,
     render: (text: React.ReactNode, record: { status: number }) => (
-      <Trend flag={record.status === 1 ? 'down' : 'up'}>
+      <Trend flag={record.status === 1 ? "down" : "up"}>
         <span style={{ marginRight: 4 }}>{text}%</span>
       </Trend>
     ),
@@ -74,7 +84,7 @@ const TopSearch = ({
     }
     extra={dropdownGroup}
     style={{
-      height: '100%',
+      height: "100%",
     }}
   >
     <Row gutter={68} type="flex">
@@ -99,7 +109,7 @@ const TopSearch = ({
             </span>
           }
           gap={8}
-          total={numeral(12321).format('0,0')}
+          total={numeral(12321).format("0,0")}
           status="up"
           subTotal={17.1}
         />

@@ -1,19 +1,24 @@
-import { PlusOutlined, HomeOutlined, ContactsOutlined, ClusterOutlined } from '@ant-design/icons';
-import { Avatar, Card, Col, Divider, Input, Row, Tag } from 'antd';
-import React, { Component, useState, useRef } from 'react';
-import { GridContent } from '@ant-design/pro-layout';
-import { Link, connect, Dispatch } from 'umi';
-import { RouteChildrenProps } from 'react-router';
-import { ModalState } from './model';
-import Projects from './components/Projects';
-import Articles from './components/Articles';
-import Applications from './components/Applications';
-import { CurrentUser, TagType } from './data.d';
-import styles from './Center.less';
+import {
+  PlusOutlined,
+  HomeOutlined,
+  ContactsOutlined,
+  ClusterOutlined,
+} from "@ant-design/icons";
+import { Avatar, Card, Col, Divider, Input, Row, Tag } from "antd";
+import React, { Component, useState, useRef } from "react";
+import { GridContent } from "@ant-design/pro-layout";
+import { Link, connect, Dispatch } from "umi";
+import { RouteChildrenProps } from "react-router";
+import { ModalState } from "./model";
+import Projects from "./components/Projects";
+import Articles from "./components/Articles";
+import Applications from "./components/Applications";
+import { CurrentUser, TagType } from "./data.d";
+import styles from "./Center.less";
 
 const operationTabList = [
   {
-    key: 'articles',
+    key: "articles",
     tab: (
       <span>
         文章 <span style={{ fontSize: 14 }}>(8)</span>
@@ -21,7 +26,7 @@ const operationTabList = [
     ),
   },
   {
-    key: 'applications',
+    key: "applications",
     tab: (
       <span>
         应用 <span style={{ fontSize: 14 }}>(8)</span>
@@ -29,7 +34,7 @@ const operationTabList = [
     ),
   },
   {
-    key: 'projects',
+    key: "projects",
     tab: (
       <span>
         项目 <span style={{ fontSize: 14 }}>(8)</span>
@@ -44,14 +49,14 @@ interface CenterProps extends RouteChildrenProps {
   currentUserLoading: boolean;
 }
 interface CenterState {
-  tabKey?: 'articles' | 'applications' | 'projects';
+  tabKey?: "articles" | "applications" | "projects";
 }
 
-const TagList: React.FC<{ tags: CurrentUser['tags'] }> = ({ tags }) => {
+const TagList: React.FC<{ tags: CurrentUser["tags"] }> = ({ tags }) => {
   const ref = useRef<Input | null>(null);
   const [newTags, setNewTags] = useState<TagType[]>([]);
   const [inputVisible, setInputVisible] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>("");
 
   const showInput = () => {
     setInputVisible(true);
@@ -67,12 +72,18 @@ const TagList: React.FC<{ tags: CurrentUser['tags'] }> = ({ tags }) => {
 
   const handleInputConfirm = () => {
     let tempsTags = [...newTags];
-    if (inputValue && tempsTags.filter((tag) => tag.label === inputValue).length === 0) {
-      tempsTags = [...tempsTags, { key: `new-${tempsTags.length}`, label: inputValue }];
+    if (
+      inputValue &&
+      tempsTags.filter((tag) => tag.label === inputValue).length === 0
+    ) {
+      tempsTags = [
+        ...tempsTags,
+        { key: `new-${tempsTags.length}`, label: inputValue },
+      ];
     }
     setNewTags(tempsTags);
     setInputVisible(false);
-    setInputValue('');
+    setInputValue("");
   };
 
   return (
@@ -94,7 +105,7 @@ const TagList: React.FC<{ tags: CurrentUser['tags'] }> = ({ tags }) => {
         />
       )}
       {!inputVisible && (
-        <Tag onClick={showInput} style={{ borderStyle: 'dashed' }}>
+        <Tag onClick={showInput} style={{ borderStyle: "dashed" }}>
           <PlusOutlined />
         </Tag>
       )}
@@ -122,7 +133,7 @@ class Center extends Component<CenterProps, CenterState> {
   // }
 
   state: CenterState = {
-    tabKey: 'articles',
+    tabKey: "articles",
   };
 
   public input: Input | null | undefined = undefined;
@@ -130,10 +141,10 @@ class Center extends Component<CenterProps, CenterState> {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'accountAndcenter/fetchCurrent',
+      type: "accountAndcenter/fetchCurrent",
     });
     dispatch({
-      type: 'accountAndcenter/fetch',
+      type: "accountAndcenter/fetch",
     });
   }
 
@@ -142,18 +153,18 @@ class Center extends Component<CenterProps, CenterState> {
     // const { match } = this.props;
     // router.push(`${match.url}/${key}`);
     this.setState({
-      tabKey: key as CenterState['tabKey'],
+      tabKey: key as CenterState["tabKey"],
     });
   };
 
-  renderChildrenByTabKey = (tabKey: CenterState['tabKey']) => {
-    if (tabKey === 'projects') {
+  renderChildrenByTabKey = (tabKey: CenterState["tabKey"]) => {
+    if (tabKey === "projects") {
       return <Projects />;
     }
-    if (tabKey === 'applications') {
+    if (tabKey === "applications") {
       return <Applications />;
     }
-    if (tabKey === 'articles') {
+    if (tabKey === "articles") {
       return <Articles />;
     }
     return null;
@@ -183,12 +194,12 @@ class Center extends Component<CenterProps, CenterState> {
             marginRight: 8,
           }}
         />
-        {(currentUser.geographic || { province: { label: '' } }).province.label}
+        {(currentUser.geographic || { province: { label: "" } }).province.label}
         {
           (
             currentUser.geographic || {
               city: {
-                label: '',
+                label: "",
               },
             }
           ).city.label
@@ -200,12 +211,17 @@ class Center extends Component<CenterProps, CenterState> {
   render() {
     const { tabKey } = this.state;
     const { currentUser = {}, currentUserLoading } = this.props;
-    const dataLoading = currentUserLoading || !(currentUser && Object.keys(currentUser).length);
+    const dataLoading =
+      currentUserLoading || !(currentUser && Object.keys(currentUser).length);
     return (
       <GridContent>
         <Row gutter={24}>
           <Col lg={7} md={24}>
-            <Card bordered={false} style={{ marginBottom: 24 }} loading={dataLoading}>
+            <Card
+              bordered={false}
+              style={{ marginBottom: 24 }}
+              loading={dataLoading}
+            >
               {!dataLoading && (
                 <div>
                   <div className={styles.avatarHolder}>
@@ -261,6 +277,6 @@ export default connect(
     accountAndcenter: ModalState;
   }) => ({
     currentUser: accountAndcenter.currentUser,
-    currentUserLoading: loading.effects['accountAndcenter/fetchCurrent'],
-  }),
+    currentUserLoading: loading.effects["accountAndcenter/fetchCurrent"],
+  })
 )(Center);

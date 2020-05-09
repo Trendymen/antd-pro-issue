@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { Statistic } from 'antd';
-import { MiniArea } from '../Charts';
-import styles from './index.less';
+import { Statistic } from "antd";
+import { MiniArea } from "../Charts";
+import styles from "./index.less";
 
 function fixedZero(val: number) {
   return val * 1 < 10 ? `0${val}` : val;
@@ -48,7 +48,7 @@ export default class ActiveChart extends Component {
           },
           () => {
             this.loopData();
-          },
+          }
         );
       }, 1000);
     });
@@ -83,8 +83,13 @@ export default class ActiveChart extends Component {
         {activeData && (
           <div>
             <div className={styles.activeChartGrid}>
-              <p>{[...activeData].sort()[activeData.length - 1].y + 200} 亿元</p>
-              <p>{[...activeData].sort()[Math.floor(activeData.length / 2)].y} 亿元</p>
+              <p>
+                {[...activeData].sort()[activeData.length - 1].y + 200} 亿元
+              </p>
+              <p>
+                {[...activeData].sort()[Math.floor(activeData.length / 2)].y}{" "}
+                亿元
+              </p>
             </div>
             <div className={styles.dashedLine}>
               <div className={styles.line} />

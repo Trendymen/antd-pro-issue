@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { Select, Spin } from 'antd';
-import { LabeledValue } from 'antd/es/select';
-import { connect, Dispatch } from 'umi';
-import { GeographicItemType } from '../data.d';
-import styles from './GeographicView.less';
+import React, { Component } from "react";
+import { Select, Spin } from "antd";
+import { LabeledValue } from "antd/es/select";
+import { connect, Dispatch } from "umi";
+import { GeographicItemType } from "../data.d";
+import styles from "./GeographicView.less";
 
 const { Option } = Select;
 
 const nullSelectItem: LabeledValue = {
-  label: '',
-  value: '',
-  key: '',
+  label: "",
+  value: "",
+  key: "",
 };
 
 interface GeographicViewProps {
@@ -30,7 +30,7 @@ class GeographicView extends Component<GeographicViewProps> {
     const { dispatch } = this.props;
     if (dispatch) {
       dispatch({
-        type: 'accountAndsettings/fetchProvince',
+        type: "accountAndsettings/fetchProvince",
       });
     }
   };
@@ -41,7 +41,7 @@ class GeographicView extends Component<GeographicViewProps> {
     if (!props.value && !!value && !!value.province) {
       if (dispatch) {
         dispatch({
-          type: 'accountAndsettings/fetchCity',
+          type: "accountAndsettings/fetchCity",
           payload: value.province.key,
         });
       }
@@ -84,7 +84,7 @@ class GeographicView extends Component<GeographicViewProps> {
 
     if (dispatch) {
       dispatch({
-        type: 'accountAndsettings/fetchCity',
+        type: "accountAndsettings/fetchCity",
         payload: item.key,
       });
     }
@@ -167,5 +167,5 @@ export default connect(
       city,
       loading: loading.models.accountAndsettings,
     };
-  },
+  }
 )(GeographicView);

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Form, Button, Divider, Input, Select } from 'antd';
-import { connect, Dispatch } from 'umi';
-import { StateType } from '../../model';
-import styles from './index.less';
+import React from "react";
+import { Form, Button, Divider, Input, Select } from "antd";
+import { connect, Dispatch } from "umi";
+import { StateType } from "../../model";
+import styles from "./index.less";
 
 const { Option } = Select;
 
@@ -15,7 +15,7 @@ const formItemLayout = {
   },
 };
 interface Step1Props {
-  data?: StateType['step'];
+  data?: StateType["step"];
   dispatch?: Dispatch<any>;
 }
 
@@ -31,12 +31,12 @@ const Step1: React.FC<Step1Props> = (props) => {
     const values = await validateFields();
     if (dispatch) {
       dispatch({
-        type: 'formAndstepForm/saveStepFormData',
+        type: "formAndstepForm/saveStepFormData",
         payload: values,
       });
       dispatch({
-        type: 'formAndstepForm/saveCurrentStep',
-        payload: 'confirm',
+        type: "formAndstepForm/saveCurrentStep",
+        payload: "confirm",
       });
     }
   };
@@ -53,7 +53,7 @@ const Step1: React.FC<Step1Props> = (props) => {
         <Form.Item
           label="付款账户"
           name="payAccount"
-          rules={[{ required: true, message: '请选择付款账户' }]}
+          rules={[{ required: true, message: "请选择付款账户" }]}
         >
           <Select placeholder="test@example.com">
             <Option value="ant-design@alipay.com">ant-design@alipay.com</Option>
@@ -69,18 +69,21 @@ const Step1: React.FC<Step1Props> = (props) => {
               noStyle
               name="receiverAccount"
               rules={[
-                { required: true, message: '请输入收款人账户' },
-                { type: 'email', message: '账户名应为邮箱格式' },
+                { required: true, message: "请输入收款人账户" },
+                { type: "email", message: "账户名应为邮箱格式" },
               ]}
             >
-              <Input style={{ width: 'calc(100% - 100px)' }} placeholder="test@example.com" />
+              <Input
+                style={{ width: "calc(100% - 100px)" }}
+                placeholder="test@example.com"
+              />
             </Form.Item>
           </Input.Group>
         </Form.Item>
         <Form.Item
           label="收款人姓名"
           name="receiverName"
-          rules={[{ required: true, message: '请输入收款人姓名' }]}
+          rules={[{ required: true, message: "请输入收款人姓名" }]}
         >
           <Input placeholder="请输入收款人姓名" />
         </Form.Item>
@@ -88,10 +91,10 @@ const Step1: React.FC<Step1Props> = (props) => {
           label="转账金额"
           name="amount"
           rules={[
-            { required: true, message: '请输入转账金额' },
+            { required: true, message: "请输入转账金额" },
             {
               pattern: /^(\d+)((?:\.\d+)?)$/,
-              message: '请输入合法金额数字',
+              message: "请输入合法金额数字",
             },
           ]}
         >
@@ -111,7 +114,7 @@ const Step1: React.FC<Step1Props> = (props) => {
           </Button>
         </Form.Item>
       </Form>
-      <Divider style={{ margin: '40px 0 24px' }} />
+      <Divider style={{ margin: "40px 0 24px" }} />
       <div className={styles.desc}>
         <h3>说明</h3>
         <h4>转账到支付宝账户</h4>
@@ -127,6 +130,8 @@ const Step1: React.FC<Step1Props> = (props) => {
   );
 };
 
-export default connect(({ formAndstepForm }: { formAndstepForm: StateType }) => ({
-  data: formAndstepForm.step,
-}))(Step1);
+export default connect(
+  ({ formAndstepForm }: { formAndstepForm: StateType }) => ({
+    data: formAndstepForm.step,
+  })
+)(Step1);

@@ -1,15 +1,15 @@
-import { Tabs, Form } from 'antd';
-import React, { useState } from 'react';
-import useMergeValue from 'use-merge-value';
-import classNames from 'classnames';
-import { FormInstance } from 'antd/es/form';
-import LoginContext from './LoginContext';
-import LoginItem, { LoginItemProps } from './LoginItem';
+import { Tabs, Form } from "antd";
+import React, { useState } from "react";
+import useMergeValue from "use-merge-value";
+import classNames from "classnames";
+import { FormInstance } from "antd/es/form";
+import LoginContext from "./LoginContext";
+import LoginItem, { LoginItemProps } from "./LoginItem";
 
-import LoginSubmit from './LoginSubmit';
-import LoginTab from './LoginTab';
-import styles from './index.less';
-import { LoginParamsType } from '../../service';
+import LoginSubmit from "./LoginSubmit";
+import LoginTab from "./LoginTab";
+import styles from "./index.less";
+import { LoginParamsType } from "../../service";
 
 export interface LoginProps {
   activeKey?: string;
@@ -34,7 +34,7 @@ const Login: LoginType = (props) => {
   const { className } = props;
   const [tabs, setTabs] = useState<string[]>([]);
   const [active, setActive] = useState();
-  const [type, setType] = useMergeValue('', {
+  const [type, setType] = useMergeValue("", {
     value: props.activeKey,
     onChange: props.onTabChange,
   });
@@ -42,16 +42,20 @@ const Login: LoginType = (props) => {
   const otherChildren: React.ReactElement<unknown>[] = [];
   React.Children.forEach(
     props.children,
-    (child: React.ReactComponentElement<typeof LoginTab> | React.ReactElement<unknown>) => {
+    (
+      child:
+        | React.ReactComponentElement<typeof LoginTab>
+        | React.ReactElement<unknown>
+    ) => {
       if (!child) {
         return;
       }
-      if ((child.type as { typeName: string }).typeName === 'LoginTab') {
+      if ((child.type as { typeName: string }).typeName === "LoginTab") {
         TabChildren.push(child as React.ReactComponentElement<typeof LoginTab>);
       } else {
         otherChildren.push(child);
       }
-    },
+    }
   );
   return (
     <LoginContext.Provider

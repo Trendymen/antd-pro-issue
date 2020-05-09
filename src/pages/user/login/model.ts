@@ -1,12 +1,12 @@
-import { Effect, history, Reducer } from 'umi';
-import { message } from 'antd';
-import { fakeAccountLogin, getFakeCaptcha } from './service';
-import { getPageQuery, setAuthority } from './utils/utils';
+import { Effect, history, Reducer } from "umi";
+import { message } from "antd";
+import { fakeAccountLogin, getFakeCaptcha } from "./service";
+import { getPageQuery, setAuthority } from "./utils/utils";
 
 export interface StateType {
-  status?: 'ok' | 'error';
+  status?: "ok" | "error";
   type?: string;
-  currentAuthority?: 'user' | 'guest' | 'admin';
+  currentAuthority?: "user" | "guest" | "admin";
 }
 
 export interface ModelType {
@@ -22,7 +22,7 @@ export interface ModelType {
 }
 
 const Model: ModelType = {
-  namespace: 'userAndlogin',
+  namespace: "userAndlogin",
 
   state: {
     status: undefined,
@@ -32,12 +32,12 @@ const Model: ModelType = {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
       yield put({
-        type: 'changeLoginStatus',
+        type: "changeLoginStatus",
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
-        message.success('登录成功！');
+      if (response.status === "ok") {
+        message.success("登录成功！");
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -46,14 +46,14 @@ const Model: ModelType = {
           if (redirectUrlParams.origin === urlParams.origin) {
             redirect = redirect.substr(urlParams.origin.length);
             if (redirect.match(/^\/.*#/)) {
-              redirect = redirect.substr(redirect.indexOf('#') + 1);
+              redirect = redirect.substr(redirect.indexOf("#") + 1);
             }
           } else {
             window.location.href = redirect;
             return;
           }
         }
-        history.replace(redirect || '/');
+        history.replace(redirect || "/");
       }
     },
 

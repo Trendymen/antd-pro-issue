@@ -1,9 +1,9 @@
-import React from 'react';
-import { PageLoading } from '@ant-design/pro-layout';
-import { Redirect, connect, ConnectProps } from 'umi';
-import { stringify } from 'querystring';
-import { ConnectState } from '@/models/connect';
-import { CurrentUser } from '@/models/user';
+import React from "react";
+import { PageLoading } from "@ant-design/pro-layout";
+import { Redirect, connect, ConnectProps } from "umi";
+import { stringify } from "querystring";
+import { ConnectState } from "@/models/connect";
+import { CurrentUser } from "@/models/user";
 
 interface SecurityLayoutProps extends ConnectProps {
   loading?: boolean;
@@ -14,7 +14,10 @@ interface SecurityLayoutState {
   isReady: boolean;
 }
 
-class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayoutState> {
+class SecurityLayout extends React.Component<
+  SecurityLayoutProps,
+  SecurityLayoutState
+> {
   state: SecurityLayoutState = {
     isReady: false,
   };
@@ -26,7 +29,7 @@ class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayout
     const { dispatch } = this.props;
     if (dispatch) {
       dispatch({
-        type: 'user/fetchCurrent',
+        type: "user/fetchCurrent",
       });
     }
   }
@@ -44,7 +47,7 @@ class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayout
     if ((!isLogin && loading) || !isReady) {
       return <PageLoading />;
     }
-    if (!isLogin && window.location.pathname !== '/user/login') {
+    if (!isLogin && window.location.pathname !== "/user/login") {
       return <Redirect to={`/user/login?${queryString}`} />;
     }
     return children;
